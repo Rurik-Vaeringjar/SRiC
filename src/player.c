@@ -53,7 +53,7 @@ void handleInput(int input)
 int mobCollision(Pos target)
 {
 	for (int i=0; i<numMobs; i++)
-		if (target.y == mobList[i]->pos.y && target.x == mobList[i]->pos.x)
+		if (target.y == mobList[i]->entity->pos.y && target.x == mobList[i]->entity->pos.x)
 			return i;
 	return -1;
 }

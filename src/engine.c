@@ -38,11 +38,7 @@ void gameLoop(void)
 			break;		
 		
 		//mob's turn
-		for (int i=0; i<numMobs; i++)
-		{
-			if (mobList[i]->alive)
-				moveMob(mobList[i]);
-		}
+		mobsTurn();
 
 		//player's turn
 		handleInput(ch);

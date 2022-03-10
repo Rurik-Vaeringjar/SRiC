@@ -1,16 +1,16 @@
 #include <rogue.h>
 
-void killMob(Entity* mob)
+void killMob(Mob* mob)
 {
-	mob->ch = '%';
-	mob->color = COLOR_PAIR(CORPSE_COLOR);
+	mob->entity->ch = '%';
+	mob->entity->color = COLOR_PAIR(CORPSE_COLOR);
 	mob->alive = false;
-	map[mob->pos.y][mob->pos.x].occupied = false;
+	map[mob->entity->pos.y][mob->entity->pos.x].occupied = false;
 }
 
-void moveMob(Entity* mob)
+void moveMob(Mob* mob)
 {
-	Pos newPos = {mob->pos.y, mob->pos.x};
+	Pos newPos = {mob->entity->pos.y, mob->entity->pos.x};
 	if (map[newPos.y][newPos.x].visible)
 	{
 		if (newPos.y > player->pos.y)
@@ -31,11 +31,23 @@ void moveMob(Entity* mob)
 	if (map[newPos.y][newPos.x].walkable)
 	{
 		if (map[newPos.y][newPos.x].occupied)
-			return;
-		map[mob->pos.y][mob->pos.x].occupied = false;
-		map[newPos.y][newPos.x].occupied = true;
-		mob->pos.y = newPos.y; 
-		mob->pos.x = newPos.x;
+		{
+		}
+		else
+		{
+			map[mob->entity->pos.y][mob->entity->pos.x].occupied = false;
+			map[newPos.y][newPos.x].occupied = true;
+			mob->entity->pos.y = newPos.y; 
+			mob->entity->pos.x = newPos.x;
+		}
 	}
 }
 
+void mobsTurn()
+{
+	for (int i=0; i<numMobs; i++)
+	{
+		if (mobList[i]->alive)
+			moveMob(mobList[i]);
+	}
+}

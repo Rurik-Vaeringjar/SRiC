@@ -19,15 +19,27 @@ void drawEntity(Entity* entity)
 	mvaddch(entity->pos.y, entity->pos.x, entity->ch | entity->color);
 }
 
+void drawObs(void)
+{
+	int y, x;
+	for(int i=0; i<numObs; i++)
+	{
+		y = obList[i]->entity->pos.y;
+		x = obList[i]->entity->pos.x;
+		if (map[y][x].visible)
+			drawEntity(obList[i]->entity);
+	}
+}
+
 void drawMobs(void)
 {
 	int y, x;
 	for (int i=0; i<numMobs; i++)
 	{
-		y = mobList[i]->pos.y;
-		x = mobList[i]->pos.x;
+		y = mobList[i]->entity->pos.y;
+		x = mobList[i]->entity->pos.x;
 		if (map[y][x].visible)
-			drawEntity(mobList[i]);
+			drawEntity(mobList[i]->entity);
 	}
 }
 

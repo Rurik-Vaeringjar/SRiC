@@ -49,9 +49,21 @@ typedef struct
 	bool alive;
 } Entity;
 
+typedef struct
+{
+	Entity* entity;
+	bool alive;
+} Mob;
+
+typedef struct
+{
+	Entity* entity;
+} Ob;
+
 //draw.c function prototypes
 void drawMap(void);
 void drawEntity(Entity* entity);
+void drawObs(void);
 void drawMobs(void);
 void drawAll(void);
 
@@ -84,21 +96,34 @@ void handleInput(int input);
 void movePlayer(Pos newPos);
 
 //mob.c function prototypes
-void killMob(Entity* mob);
-void moveMob(Entity* mob);
+void killMob(Mob* mob);
+void moveMob(Mob* mob);
+void mobsTurn(void);
 
 //mobs.c function prototypes
-Entity* createMob(Pos spawn_pos, char ch);
-void appendMobList(Entity* newMob);
+Mob* createMob(Pos spawn_pos, char ch);
+void spawnMob(Pos spawn_pos);
+void appendMobList(Mob* newMob);
+void freeMob(Mob* mob);
 void reduceMobList(int index);
 void clearMobList(void);
+
+//obs.c function prototypes
+void objectifyMob(int index);
+void appendObList(Ob* newOb);
+void freeOb(Ob* ob);
+void reduceObList(int index);
+void clearObList(void);
+
 
 //externs
 extern const int MAP_HEIGHT;
 extern const int MAP_WIDTH;
 extern int numMobs;
+extern int numObs;
 extern Entity* player;
-extern Entity** mobList;
+extern Mob** mobList;
+extern Ob** obList;
 extern Tile** map;
 
 
