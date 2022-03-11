@@ -63,7 +63,7 @@ void reduceMobList(int index)
 		mobList[index] = mobList[numMobs];
 		mobList[numMobs] = temp;	
 	}
-	freeMob(mobList[numMobs]);
+	free(mobList[numMobs]);
 	Mob** tempList = realloc(mobList, sizeof(Mob*) * numMobs);
 	mobList = tempList;
 }

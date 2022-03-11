@@ -13,14 +13,19 @@ void moveMob(Mob* mob)
 	Pos newPos = {mob->entity->pos.y, mob->entity->pos.x};
 	if (map[newPos.y][newPos.x].visible)
 	{
-		if (newPos.y > player->pos.y)
-			newPos.y--;
-		else if (newPos.y < player->pos.y)
-			newPos.y++;
-		else if (newPos.x > player->pos.x)
-			newPos.x--;
-		else if (newPos.x < player->pos.x)
-			newPos.x++;
+		int dy = player->pos.y - newPos.y;
+		int dx = player->pos.x - newPos.x;
+
+		if (abs(dy) > abs(dx))
+			if (dy < 0)
+				newPos.y--;
+			else
+				newPos.y++;
+		else
+			if (dx < 0)
+				newPos.x--;
+			else
+				newPos.x++;
 	}
 	else
 	{

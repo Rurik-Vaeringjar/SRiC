@@ -8,7 +8,6 @@ Entity* createPlayer(Pos start_pos)
 	newPlayer->pos.x = start_pos.x;
 	newPlayer->ch = '@';
 	newPlayer->color = COLOR_PAIR(VISIBLE_COLOR);
-	newPlayer->alive = true;
 
 	return newPlayer;
 }
@@ -67,7 +66,10 @@ void movePlayer(Pos newPos)
 			collision = mobCollision(newPos);
 		
 		if(collision != -1)
+		{
 			killMob(mobList[collision]);
+			objectifyMob(collision);
+		}
 		else
 		{
 			clearFOV(player);

@@ -46,7 +46,6 @@ typedef struct
 	Pos pos;
 	char ch;
 	int color;
-	bool alive;
 } Entity;
 
 typedef struct

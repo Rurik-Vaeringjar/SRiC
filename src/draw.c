@@ -47,6 +47,7 @@ void drawAll(void)
 {
 	clear();
 	drawMap();
+	drawObs();
 	drawMobs();
 	drawEntity(player);
 	
