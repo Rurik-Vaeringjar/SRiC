@@ -15,7 +15,7 @@ Tile** createMapTiles(void)
 			tiles[y][x].transparent = false;
 			tiles[y][x].visible = false;
 			tiles[y][x].seen = false;
-			tiles[y][x].occupied = false;
+			tiles[y][x].occupied = -1;
 		}
 	}
 

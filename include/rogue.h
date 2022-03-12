@@ -30,7 +30,7 @@ typedef struct
 	bool transparent;
 	bool visible;
 	bool seen;
-	bool occupied;
+	char occupied;
 } Tile;
 
 typedef struct
@@ -51,7 +51,7 @@ typedef struct
 typedef struct
 {
 	Entity* entity;
-	bool alive;
+	char index;
 } Mob;
 
 typedef struct
@@ -91,7 +91,7 @@ int getSign(int a);
 
 //player.c function protoypes
 Entity* createPlayer(Pos start_pos);
-void handleInput(int input);
+void handleInput(char input);
 void movePlayer(Pos newPos);
 
 //mob.c function prototypes
@@ -104,22 +104,22 @@ Mob* createMob(Pos spawn_pos, char ch);
 void spawnMob(Pos spawn_pos);
 void appendMobList(Mob* newMob);
 void freeMob(Mob* mob);
-void reduceMobList(int index);
+void reduceMobList(char index);
 void clearMobList(void);
 
 //obs.c function prototypes
-void objectifyMob(int index);
+void objectifyMob(char index);
 void appendObList(Ob* newOb);
 void freeOb(Ob* ob);
-void reduceObList(int index);
+void reduceObList(char index);
 void clearObList(void);
 
 
 //externs
 extern const int MAP_HEIGHT;
 extern const int MAP_WIDTH;
-extern int numMobs;
-extern int numObs;
+extern char numMobs;
+extern char numObs;
 extern Entity* player;
 extern Mob** mobList;
 extern Ob** obList;

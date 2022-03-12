@@ -1,6 +1,6 @@
 #include <rogue.h>
 
-void objectifyMob(int index)
+void objectifyMob(char index)
 {
 	Ob* newOb = calloc(1, sizeof(Ob));
 	newOb->entity = mobList[index]->entity;
@@ -31,7 +31,7 @@ void freeOb(Ob* ob)
 	free(ob);
 }
 
-void reduceObList(int index)
+void reduceObList(char index)
 {
 	numObs--;
 	if (index != numObs)

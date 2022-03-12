@@ -12,7 +12,7 @@ Entity* createPlayer(Pos start_pos)
 	return newPlayer;
 }
 
-void handleInput(int input)
+void handleInput(char input)
 {
 	Pos newPos = {player->pos.y, player->pos.x};
 
@@ -61,20 +61,17 @@ void movePlayer(Pos newPos)
 {
 	if (map[newPos.y][newPos.x].walkable)
 	{
-		int collision = -1;
-		if (map[newPos.y][newPos.x].occupied)
-			collision = mobCollision(newPos);
-		
-		if(collision != -1)
-		{
+		char collision = map[newPos.y][newPos.x].occupied;
+		if (collision > -1)
+		{	
 			killMob(mobList[collision]);
 			objectifyMob(collision);
 		}
 		else
 		{
 			clearFOV(player);
-			map[player->pos.y][player->pos.x].occupied = false;
-			map[newPos.y][newPos.x].occupied = true;
+			map[player->pos.y][player->pos.x].occupied = -1;
+			map[newPos.y][newPos.x].occupied = 127;
 			player->pos.y = newPos.y;
 			player->pos.x = newPos.x;
 			makeFOV(player);

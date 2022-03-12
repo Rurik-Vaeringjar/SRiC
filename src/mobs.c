@@ -10,7 +10,6 @@ Mob* createMob(Pos spawn_pos, char ch)
 	newMob->entity->pos.x = spawn_pos.x;
 	newMob->entity->ch = ch;
 	newMob->entity->color = COLOR_PAIR(MOB_COLOR);
-	newMob->alive = true;
 
 	return newMob;
 }
@@ -36,13 +35,16 @@ void appendMobList(Mob* newMob)
 	{
 		mobList = calloc(1, sizeof(Mob*));
 		mobList[0] = newMob;
+		mobList[0]->index = 0;
 		numMobs++;
 	}
 	else
 	{
 		numMobs++;
+		char i = numMobs-1;
 		Mob** tempList = realloc(mobList, sizeof(Mob*) * numMobs);
-		tempList[numMobs-1] = newMob;
+		tempList[i] = newMob;
+		tempList[i]->index = i;
 		mobList = tempList;
 	}
 }
@@ -54,13 +56,14 @@ void freeMob(Mob* mob)
 	free(mob);
 }
 
-void reduceMobList(int index)
+void reduceMobList(char index)
 {
 	numMobs--;
 	if (index != numMobs)
 	{
 		Mob* temp = mobList[index];
 		mobList[index] = mobList[numMobs];
+		mobList[index]->index = index;
 		mobList[numMobs] = temp;	
 	}
 	free(mobList[numMobs]);

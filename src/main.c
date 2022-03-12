@@ -3,8 +3,8 @@
 const int MAP_HEIGHT = 35;
 const int MAP_WIDTH = 150;
 
-int numMobs = 0;
-int numObs = 0;
+char numMobs = 0;
+char numObs = 0;
 
 Entity* player;
 Mob** mobList;

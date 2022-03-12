@@ -4,8 +4,7 @@ void killMob(Mob* mob)
 {
 	mob->entity->ch = '%';
 	mob->entity->color = COLOR_PAIR(CORPSE_COLOR);
-	mob->alive = false;
-	map[mob->entity->pos.y][mob->entity->pos.x].occupied = false;
+	map[mob->entity->pos.y][mob->entity->pos.x].occupied = -1;
 }
 
 void moveMob(Mob* mob)
@@ -35,13 +34,13 @@ void moveMob(Mob* mob)
 
 	if (map[newPos.y][newPos.x].walkable)
 	{
-		if (map[newPos.y][newPos.x].occupied)
+		if (map[newPos.y][newPos.x].occupied > -1)
 		{
 		}
 		else
 		{
-			map[mob->entity->pos.y][mob->entity->pos.x].occupied = false;
-			map[newPos.y][newPos.x].occupied = true;
+			map[mob->entity->pos.y][mob->entity->pos.x].occupied = -1;
+			map[newPos.y][newPos.x].occupied = mob->index;
 			mob->entity->pos.y = newPos.y; 
 			mob->entity->pos.x = newPos.x;
 		}
@@ -52,7 +51,6 @@ void mobsTurn()
 {
 	for (int i=0; i<numMobs; i++)
 	{
-		if (mobList[i]->alive)
-			moveMob(mobList[i]);
+		moveMob(mobList[i]);
 	}
 }

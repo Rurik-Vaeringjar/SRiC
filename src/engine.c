@@ -27,7 +27,7 @@ bool cursesSetup(void)
 
 void gameLoop(void)
 {
-	int ch;
+	char ch;
 
 	makeFOV(player);
 	drawAll();
@@ -36,12 +36,14 @@ void gameLoop(void)
 	{
 		if (ch=='q')
 			break;		
-		
-		//mob's turn
-		mobsTurn();
 
 		//player's turn
 		handleInput(ch);
+
+		drawAll();
+
+		//mob's turn
+		mobsTurn();
 
 		drawAll();
 	}
