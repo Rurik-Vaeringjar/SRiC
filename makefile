@@ -8,7 +8,8 @@ rogue:
 	$(CC) $(SOURCES) $(CFLAGS) -g -O3 -o rogue
 
 run:
-	./rogue
+	gdb rogue
+	#./rogue
 
 clean:
 	#rm rogue

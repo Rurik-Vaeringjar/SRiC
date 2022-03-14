@@ -34,7 +34,7 @@ void gameLoop(void)
 
 	while(ch = getch())
 	{
-		if (ch=='q')
+		if (ch==27)
 			break;		
 
 		//player's turn

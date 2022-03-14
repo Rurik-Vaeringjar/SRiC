@@ -12,7 +12,7 @@ Entity* createPlayer(Pos start_pos)
 	return newPlayer;
 }
 
-void handleInput(char input)
+void handleInput(int input)
 {
 	Pos newPos = {player->pos.y, player->pos.x};
 
@@ -20,23 +20,41 @@ void handleInput(char input)
 	{
 		//move up
 		case 'w':
-			//player->pos.y--;
 			newPos.y--;
 			break;
 		//move down
-		case 's':
-			//player->pos.y++;
+		case 'x':
 			newPos.y++;
 			break;
 		//move left
 		case 'a':
-			//player->pos.x--;
 			newPos.x--;
 			break;
 		//move right
 		case 'd':
-			//player->pos.x++;
 			newPos.x++;
+			break;
+		//move up+left
+		case 'q':
+			newPos.y--;
+			newPos.x--;
+			break;
+		//move up+right
+		case 'e':
+			newPos.y--;
+			newPos.x++;
+			break;
+		//move down+right
+		case 'c':
+			newPos.y++;
+			newPos.x++;
+			break;
+		//move down+left
+		case 'z':
+			newPos.y++;
+			newPos.x--;
+			break;
+		case 's':
 			break;
 		case 'k':
 			killMob(mobList[rand()%numMobs]);
@@ -49,13 +67,14 @@ void handleInput(char input)
 	movePlayer(newPos);
 }
 
-int mobCollision(Pos target)
+
+/*int mobCollision(Pos target)
 {
 	for (int i=0; i<numMobs; i++)
 		if (target.y == mobList[i]->entity->pos.y && target.x == mobList[i]->entity->pos.x)
 			return i;
 	return -1;
-}
+}*/
 
 void movePlayer(Pos newPos)
 {
@@ -71,7 +90,7 @@ void movePlayer(Pos newPos)
 		{
 			clearFOV(player);
 			map[player->pos.y][player->pos.x].occupied = -1;
-			map[newPos.y][newPos.x].occupied = 127;
+			map[newPos.y][newPos.x].occupied = -2;
 			player->pos.y = newPos.y;
 			player->pos.x = newPos.x;
 			makeFOV(player);

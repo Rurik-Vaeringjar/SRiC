@@ -91,7 +91,7 @@ int getSign(int a);
 
 //player.c function protoypes
 Entity* createPlayer(Pos start_pos);
-void handleInput(char input);
+void handleInput(int input);
 void movePlayer(Pos newPos);
 
 //mob.c function prototypes

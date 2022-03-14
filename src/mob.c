@@ -12,7 +12,7 @@ void moveMob(Mob* mob)
 	Pos newPos = {mob->entity->pos.y, mob->entity->pos.x};
 	if (map[newPos.y][newPos.x].visible)
 	{
-		int dy = player->pos.y - newPos.y;
+		/*int dy = player->pos.y - newPos.y;
 		int dx = player->pos.x - newPos.x;
 
 		if (abs(dy) > abs(dx))
@@ -24,7 +24,23 @@ void moveMob(Mob* mob)
 			if (dx < 0)
 				newPos.x--;
 			else
-				newPos.x++;
+				newPos.x++;*/
+		int dy = player->pos.y - newPos.y;
+		int dx = player->pos.x - newPos.x;
+
+		int abs_dy = abs(dy);
+		int abs_dx = abs(dx);
+
+		if (abs_dy > 1)
+		{
+			dy = (dy/abs_dy);
+			newPos.y += dy;
+		}
+		if (abs_dx > 1)
+		{
+			dx = (dx/abs_dx);
+			newPos.x += dx;
+		}
 	}
 	else
 	{
@@ -34,15 +50,16 @@ void moveMob(Mob* mob)
 
 	if (map[newPos.y][newPos.x].walkable)
 	{
-		if (map[newPos.y][newPos.x].occupied > -1)
-		{
-		}
-		else
+		if (map[newPos.y][newPos.x].occupied == -1)
 		{
 			map[mob->entity->pos.y][mob->entity->pos.x].occupied = -1;
 			map[newPos.y][newPos.x].occupied = mob->index;
-			mob->entity->pos.y = newPos.y; 
+			mob->entity->pos.y = newPos.y;
 			mob->entity->pos.x = newPos.x;
+		}
+		else
+		{
+			
 		}
 	}
 }
