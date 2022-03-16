@@ -64,6 +64,7 @@ void reduceMobList(char index)
 		Mob* temp = mobList[index];
 		mobList[index] = mobList[numMobs];
 		mobList[index]->index = index;
+		map[mobList[index]->entity->pos.y][mobList[index]->entity->pos.x].occupied = index;
 		mobList[numMobs] = temp;	
 	}
 	free(mobList[numMobs]);

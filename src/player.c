@@ -90,9 +90,9 @@ void movePlayer(Pos newPos)
 		{
 			clearFOV(player);
 			map[player->pos.y][player->pos.x].occupied = -1;
-			map[newPos.y][newPos.x].occupied = -2;
 			player->pos.y = newPos.y;
 			player->pos.x = newPos.x;
+			map[newPos.y][newPos.x].occupied = -2;
 			makeFOV(player);
 		}
 	}

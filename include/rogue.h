@@ -48,15 +48,16 @@ typedef struct
 	int color;
 } Entity;
 
-typedef struct
+typedef struct Mob
 {
 	Entity* entity;
 	char index;
 } Mob;
 
-typedef struct
+typedef struct Ob
 {
 	Entity* entity;
+	char index;
 } Ob;
 
 //draw.c function prototypes

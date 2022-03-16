@@ -14,13 +14,16 @@ void appendObList(Ob* newOb)
 	{
 		obList = calloc(1, sizeof(Ob*));
 		obList[0] = newOb;
+		obList[0]->index = 0;
 		numObs++;
 	}
 	else
 	{
 		numObs++;
+		char i = numObs-1;
 		Ob** tempList = realloc(obList, sizeof(Ob*) * numObs);
-		tempList[numObs-1] = newOb;
+		tempList[i] = newOb;
+		tempList[i]->index = i;
 		obList = tempList;
 	}
 }
@@ -38,6 +41,7 @@ void reduceObList(char index)
 	{
 		Ob* temp = obList[index];
 		obList[index] = obList[numObs];
+		obList[index]->index = index;
 		obList[numObs] = temp;	
 	}
 	freeOb(obList[numObs]);

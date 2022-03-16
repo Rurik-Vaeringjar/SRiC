@@ -53,9 +53,9 @@ void moveMob(Mob* mob)
 		if (map[newPos.y][newPos.x].occupied == -1)
 		{
 			map[mob->entity->pos.y][mob->entity->pos.x].occupied = -1;
-			map[newPos.y][newPos.x].occupied = mob->index;
 			mob->entity->pos.y = newPos.y;
 			mob->entity->pos.x = newPos.x;
+			map[newPos.y][newPos.x].occupied = mob->index;
 		}
 		else
 		{
