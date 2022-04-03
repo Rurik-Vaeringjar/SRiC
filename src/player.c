@@ -19,41 +19,50 @@ void handleInput(int input)
 	switch(input)
 	{
 		//move up
+		case 'W':
 		case 'w':
 			newPos.y--;
 			break;
 		//move down
+		case 'X':
 		case 'x':
 			newPos.y++;
 			break;
 		//move left
+		case 'A':
 		case 'a':
 			newPos.x--;
 			break;
 		//move right
+		case 'D':
 		case 'd':
 			newPos.x++;
 			break;
 		//move up+left
+		case 'Q':
 		case 'q':
 			newPos.y--;
 			newPos.x--;
 			break;
 		//move up+right
+		case 'E':
 		case 'e':
 			newPos.y--;
 			newPos.x++;
 			break;
 		//move down+right
+		case 'C':
 		case 'c':
 			newPos.y++;
 			newPos.x++;
 			break;
 		//move down+left
+		case 'Z':
 		case 'z':
 			newPos.y++;
 			newPos.x--;
 			break;
+		case 'S':
 		case 's':
 			break;
 		case 'k':
