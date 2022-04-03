@@ -12,6 +12,15 @@ void initFloors(void)
 	floors[0] = floor;
 }
 
+void addFloor(Floor* floor)
+{
+	numFloors++;
+	unsigned char i = numFloors-1;
+	Floor** tempFloors = realloc(floors, sizeof(Floor*) * numFloors);
+	tempFloors[i] = floor;
+	floors = tempFloors;
+}
+
 void saveFloor(void)
 {
 	floors[currentFloor]->numMobs = numMobs;

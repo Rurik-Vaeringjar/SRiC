@@ -128,6 +128,8 @@ void clearObList(void);
 
 //floor.c function prototypes
 void initFloors(void);
+void addFloor(Floor* floor);
+void saveFloor(void);
 void loadFloor(unsigned char index);
 
 //externs
