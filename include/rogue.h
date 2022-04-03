@@ -60,6 +60,17 @@ typedef struct Ob
 	char index;
 } Ob;
 
+typedef struct
+{
+	Tile** map;
+
+	Mob** mobList;
+	unsigned char numMobs;
+	
+	Ob** obList;
+	unsigned char numObs;
+} Floor;
+
 //draw.c function prototypes
 void drawMap(void);
 void drawEntity(Entity* entity);
@@ -115,16 +126,22 @@ void freeOb(Ob* ob);
 void reduceObList(char index);
 void clearObList(void);
 
+//floor.c function prototypes
+void initFloors(void);
+void loadFloor(unsigned char index);
 
 //externs
 extern const int MAP_HEIGHT;
 extern const int MAP_WIDTH;
-extern char numMobs;
-extern char numObs;
+extern unsigned char numMobs;
+extern unsigned char numObs;
+extern unsigned char numFloors;
+extern unsigned char currentFloor;
+
 extern Entity* player;
 extern Mob** mobList;
 extern Ob** obList;
 extern Tile** map;
-
+extern Floor** floors;
 
 #endif

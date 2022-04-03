@@ -7,7 +7,10 @@ all: rogue
 rogue:
 	$(CC) $(SOURCES) $(CFLAGS) -g -O3 -o rogue
 
-.PHONY: run test memtest clean
+.PHONY: noop run test memtest clean
+
+noop:
+	$(CC) $(SOURCES) $(CFLAGS) -g -o rogue
 
 run:
 	./rogue
