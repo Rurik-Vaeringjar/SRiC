@@ -89,6 +89,7 @@ void handleInput(int input)
 		case 'k':
 			if(currentFloor != 0)
 			{
+				clearFOV(player);
 				saveFloor();
 				currentFloor--;
 				loadFloor(currentFloor);
