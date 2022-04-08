@@ -134,6 +134,7 @@ void initFloors(void);
 void addFloor(Floor* floor);
 Floor* createFloor(void);
 void newFloor(void);
+void saveFloor(void);
 void loadFloor(unsigned char index);
 void freeFloors(void);
 

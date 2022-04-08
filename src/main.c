@@ -1,4 +1,5 @@
 #include <rogue.h>
+#include <stdio.h>
 
 const int MAP_HEIGHT = 35;
 const int MAP_WIDTH = 150;

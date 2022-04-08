@@ -27,13 +27,15 @@ Floor* createFloor(void)
 	
 	Mob** newMobList;
 	floor->mobList = newMobList;
-	unsigned char newNumMobs = 0;
-	floor->numMobs = &newNumMobs;
-
+	void* mobmem = malloc(sizeof(unsigned char));
+	floor->numMobs = (unsigned char*)mobmem;
+	*(floor->numMobs) = 0;
+	
 	Ob** newObList;
 	floor->obList = newObList;
-	unsigned char newNumObs = 0;
-	floor->numObs = &newNumObs;
+	void* obmem = malloc(sizeof(unsigned char));
+	floor->numObs = (unsigned char*)obmem;
+	*(floor->numObs) = 0;
 
 	floor->map = createMapTiles();
 
@@ -58,6 +60,12 @@ void newFloor(void)
 	currentFloor++;
 	addFloor(floor);
 
+}
+
+void saveFloor(void)
+{
+	floors[currentFloor]->mobList = mobList;
+	floors[currentFloor]->obList = obList;
 }
 
 void loadFloor(unsigned char index)

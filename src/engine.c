@@ -53,5 +53,6 @@ void closeGame(void)
 {
 	endwin();
 	free(player);
+	saveFloor();
 	freeFloors();
 }

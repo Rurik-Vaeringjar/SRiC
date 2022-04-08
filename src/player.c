@@ -72,7 +72,7 @@ void handleInput(int input)
 		case 'l': //nextfloor
 			floors[currentFloor]->exit.y = player->pos.y;
 			floors[currentFloor]->exit.x = player->pos.x;
-			clearFOV(player);
+			saveFloor();
 			if(currentFloor == numFloors-1)
 				newFloor();
 			else
@@ -87,7 +87,7 @@ void handleInput(int input)
 		case 'k':
 			if(currentFloor != 0)
 			{
-				clearFOV(player);
+				saveFloor();
 				currentFloor--;
 				loadFloor(currentFloor);
 				player->pos.y = floors[currentFloor]->exit.y;
