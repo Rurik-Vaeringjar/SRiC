@@ -53,9 +53,5 @@ void closeGame(void)
 {
 	endwin();
 	free(player);
-	freeMap();
-	clearObList();
-	free(obList);
-	clearMobList();
-	free(mobList);
+	freeFloors();
 }

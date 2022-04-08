@@ -51,7 +51,7 @@ Pos setupMap(void)
 	return start_pos;
 }
 
-void freeMap(void)
+void freeMap(Tile** map)
 {
 	for(int y=0; y<MAP_HEIGHT; y++)
 		free(map[y]);

@@ -7,7 +7,7 @@ all: rogue
 rogue:
 	$(CC) $(SOURCES) $(CFLAGS) -g -O3 -o rogue
 
-.PHONY: noop run test memtest clean
+.PHONY: noop run test memtest fullmemtest clean
 
 noop:
 	$(CC) $(SOURCES) $(CFLAGS) -g -o rogue
@@ -20,6 +20,9 @@ test:
 
 memtest:
 	valgrind ./rogue
+
+fullmemtest:
+	valgrind --leak-check=full --verbose ./rogue
 
 clean:
 	rm rogue

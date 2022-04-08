@@ -65,9 +65,35 @@ void handleInput(int input)
 		case 'S':
 		case 's':
 			break;
-		case 'k':
-			killMob(mobList[rand()%numMobs]);
+		//case 'k':
+		//	killMob(mobList[rand()%*numMobs]);
 			//reduceMobList(rand()%numMobs);
+		//	break;
+		case 'l': //nextfloor
+			floors[currentFloor]->exit.y = player->pos.y;
+			floors[currentFloor]->exit.x = player->pos.x;
+			clearFOV(player);
+			if(currentFloor == numFloors-1)
+				newFloor();
+			else
+			{
+				currentFloor++;
+				loadFloor(currentFloor);
+				player->pos.y = floors[currentFloor]->entry.y;
+				player->pos.x = floors[currentFloor]->entry.x;
+				makeFOV(player);
+			}
+			break;
+		case 'k':
+			if(currentFloor != 0)
+			{
+				clearFOV(player);
+				currentFloor--;
+				loadFloor(currentFloor);
+				player->pos.y = floors[currentFloor]->exit.y;
+				player->pos.x = floors[currentFloor]->exit.x;
+				makeFOV(player);
+			}
 			break;
 		default:
 			break;

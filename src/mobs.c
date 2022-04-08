@@ -31,18 +31,18 @@ void spawnMob(Pos spawn_pos)
 
 void appendMobList(Mob* newMob)
 {
-	if (numMobs == 0)
+	if (*numMobs == 0)
 	{
 		mobList = calloc(1, sizeof(Mob*));
 		mobList[0] = newMob;
 		mobList[0]->index = 0;
-		numMobs++;
+		(*numMobs)++;
 	}
 	else
 	{
-		numMobs++;
-		char i = numMobs-1;
-		Mob** tempList = realloc(mobList, sizeof(Mob*) * numMobs);
+		(*numMobs)++;
+		char i = *numMobs-1;
+		Mob** tempList = realloc(mobList, sizeof(Mob*) * *numMobs);
 		tempList[i] = newMob;
 		tempList[i]->index = i;
 		mobList = tempList;
@@ -58,24 +58,25 @@ void freeMob(Mob* mob)
 
 void reduceMobList(char index)
 {
-	numMobs--;
-	if (index != numMobs)
+	unsigned char nMobs = *numMobs;
+	nMobs--;
+	if (index != nMobs)
 	{
 		Mob* temp = mobList[index];
-		mobList[index] = mobList[numMobs];
+		mobList[index] = mobList[nMobs];
 		mobList[index]->index = index;
 		map[mobList[index]->entity->pos.y][mobList[index]->entity->pos.x].occupied = index;
-		mobList[numMobs] = temp;	
+		mobList[nMobs] = temp;	
 	}
-	free(mobList[numMobs]);
-	Mob** tempList = realloc(mobList, sizeof(Mob*) * numMobs);
+	free(mobList[nMobs]);
+	Mob** tempList = realloc(mobList, sizeof(Mob*) * nMobs);
 	mobList = tempList;
+	*numMobs = nMobs;
 }
 
-void clearMobList(void)
+void clearMobList(Mob** mobList, unsigned char nMobs)
 {
 	//Notice: Do not free(mobList) here
-	for (int i=0; i<numMobs; i++)
+	for (int i=0; i<nMobs; i++)
 		freeMob(mobList[i]);
-	numMobs = 0;
 }

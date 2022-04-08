@@ -3,8 +3,8 @@
 const int MAP_HEIGHT = 35;
 const int MAP_WIDTH = 150;
 
-unsigned char numMobs = 0;
-unsigned char numObs = 0;
+unsigned char *numMobs; //= 0;
+unsigned char *numObs;
 
 unsigned char numFloors = 1;
 unsigned char currentFloor = 0;
@@ -19,6 +19,11 @@ Floor** floors;
 int main(void)
 {
 	Pos start_pos;
+	unsigned char nMobs = 0;
+	numMobs = &nMobs;
+	
+	unsigned char nObs = 0;
+	numObs = &nObs;
 
 	if(cursesSetup())
 	{

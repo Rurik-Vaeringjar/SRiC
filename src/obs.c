@@ -10,18 +10,18 @@ void objectifyMob(char index)
 
 void appendObList(Ob* newOb)
 {
-	if (numObs == 0)
+	if (*numObs == 0)
 	{
 		obList = calloc(1, sizeof(Ob*));
 		obList[0] = newOb;
 		obList[0]->index = 0;
-		numObs++;
+		(*numObs)++;
 	}
 	else
 	{
-		numObs++;
-		char i = numObs-1;
-		Ob** tempList = realloc(obList, sizeof(Ob*) * numObs);
+		(*numObs)++;
+		char i = *numObs-1;
+		Ob** tempList = realloc(obList, sizeof(Ob*) * *numObs);
 		tempList[i] = newOb;
 		tempList[i]->index = i;
 		obList = tempList;
@@ -36,23 +36,25 @@ void freeOb(Ob* ob)
 
 void reduceObList(char index)
 {
-	numObs--;
-	if (index != numObs)
+	unsigned char nObs = *numObs;
+	nObs--;
+	if (index != nObs)
 	{
 		Ob* temp = obList[index];
-		obList[index] = obList[numObs];
+		obList[index] = obList[nObs];
 		obList[index]->index = index;
-		obList[numObs] = temp;	
+		obList[nObs] = temp;	
 	}
-	freeOb(obList[numObs]);
-	Ob** tempList = realloc(obList, sizeof(Ob*) * numObs);
+	freeOb(obList[nObs]);
+	Ob** tempList = realloc(obList, sizeof(Ob*) * nObs);
 	obList = tempList;
+	*numObs = nObs;
 }
 
-void clearObList(void)
+void clearObList(Ob** obList, unsigned char nObs)
 {
 	//Notice: Do not free(obList) here
-	for (int i=0; i<numObs; i++)
+	for (int i=0; i<nObs; i++)
 		freeOb(obList[i]);
 	numObs = 0;
 }

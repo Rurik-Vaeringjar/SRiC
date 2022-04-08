@@ -22,7 +22,7 @@ void drawEntity(Entity* entity)
 void drawObs(void)
 {
 	int y, x;
-	for(int i=0; i<numObs; i++)
+	for(int i=0; i<*numObs; i++)
 	{
 		y = obList[i]->entity->pos.y;
 		x = obList[i]->entity->pos.x;
@@ -34,7 +34,8 @@ void drawObs(void)
 void drawMobs(void)
 {
 	int y, x;
-	for (int i=0; i<numMobs; i++)
+	//unsigned char nMobs = *numMobs;
+	for (int i=0; i<*numMobs; i++)
 	{
 		y = mobList[i]->entity->pos.y;
 		x = mobList[i]->entity->pos.x;

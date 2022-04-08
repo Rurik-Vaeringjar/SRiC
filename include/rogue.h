@@ -65,10 +65,13 @@ typedef struct
 	Tile** map;
 
 	Mob** mobList;
-	unsigned char numMobs;
+	unsigned char* numMobs;
 	
 	Ob** obList;
-	unsigned char numObs;
+	unsigned char* numObs;
+
+	Pos entry;
+	Pos exit;
 } Floor;
 
 //draw.c function prototypes
@@ -86,7 +89,7 @@ void closeGame(void);
 //map.c function prototypes
 Tile** createMapTiles(void);
 Pos setupMap(void);
-void freeMap(void);
+void freeMap(Tile** map);
 
 //room.c function prototypes
 Room createRoom(int y, int x, int height, int width);
@@ -117,26 +120,28 @@ void spawnMob(Pos spawn_pos);
 void appendMobList(Mob* newMob);
 void freeMob(Mob* mob);
 void reduceMobList(char index);
-void clearMobList(void);
+void clearMobList(Mob** mobList, unsigned char nMobs);
 
 //obs.c function prototypes
 void objectifyMob(char index);
 void appendObList(Ob* newOb);
 void freeOb(Ob* ob);
 void reduceObList(char index);
-void clearObList(void);
+void clearObList(Ob** obList, unsigned char nObs);
 
 //floor.c function prototypes
 void initFloors(void);
 void addFloor(Floor* floor);
-void saveFloor(void);
+Floor* createFloor(void);
+void newFloor(void);
 void loadFloor(unsigned char index);
+void freeFloors(void);
 
 //externs
 extern const int MAP_HEIGHT;
 extern const int MAP_WIDTH;
-extern unsigned char numMobs;
-extern unsigned char numObs;
+extern unsigned char* numMobs;
+extern unsigned char* numObs;
 extern unsigned char numFloors;
 extern unsigned char currentFloor;
 

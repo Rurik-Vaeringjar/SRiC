@@ -66,7 +66,8 @@ void moveMob(Mob* mob)
 
 void mobsTurn()
 {
-	for (int i=0; i<numMobs; i++)
+	unsigned char nMobs = *numMobs;
+	for (int i=0; i<nMobs; i++)
 	{
 		moveMob(mobList[i]);
 	}
