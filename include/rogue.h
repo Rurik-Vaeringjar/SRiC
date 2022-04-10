@@ -58,6 +58,7 @@ typedef struct Ob
 {
 	Entity* entity;
 	char index;
+	uint8_t flags;
 } Ob;
 
 typedef struct
