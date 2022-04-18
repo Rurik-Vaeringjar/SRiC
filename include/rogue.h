@@ -89,7 +89,7 @@ void closeGame(void);
 
 //map.c function prototypes
 Tile** createMapTiles(void);
-Pos setupMap(Tile** map);
+Pos* setupMap(Tile** map);
 void freeMap(Tile** map);
 
 //room.c function prototypes
@@ -134,6 +134,8 @@ void clearObList(void);
 void initFloors(void);
 Floor* createFloor(void);
 void newFloor(void);
+void nextFloor(void);
+void prevFloor(void);
 void freeFloors(void);
 
 

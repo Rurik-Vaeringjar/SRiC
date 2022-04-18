@@ -57,8 +57,7 @@ void handleInput(int input)
 		case 's':
 			break;
 		case 'l':
-			clearFOV(floors[curFloor]->map, player);
-			newFloor();
+			nextFloor();
 			newPos.y = floors[curFloor]->start_pos.y;
 			newPos.x = floors[curFloor]->start_pos.x;
 			break;

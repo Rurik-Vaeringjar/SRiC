@@ -22,12 +22,12 @@ Tile** createMapTiles(void)
 	return tiles;
 }
 
-Pos setupMap(Tile** map)
+Pos* setupMap(Tile** map)
 {
 	int y, x, height, width, n_rooms;
 	n_rooms = rand()%11 + 10;
 	Room* rooms = calloc(n_rooms, sizeof(Room));
-	Pos start_pos;
+	Pos* pos = calloc(2, sizeof(Pos));
 
 	for (int i=0; i<n_rooms; i++)
 	{
@@ -40,15 +40,17 @@ Pos setupMap(Tile** map)
 	
 		if (i > 0)
 			connectRoomsCenter(map, rooms[i-1].cntr, rooms[i].cntr);
-
 	}
 
-	start_pos.y = rooms[0].cntr.y;
-	start_pos.x = rooms[0].cntr.x;
+	pos[0].y = rooms[0].cntr.y;
+	pos[0].x = rooms[0].cntr.x;
+
+	pos[1].y = rooms[n_rooms-1].cntr.y;
+	pos[1].x = rooms[n_rooms-1].cntr.x;
 
 	free(rooms);
 
-	return start_pos;
+	return pos;
 }
 
 void freeMap(Tile** map)
