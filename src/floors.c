@@ -33,6 +33,9 @@ void newFloor(void)
 
 void nextFloor(void)
 {
+	if (curFloor == 254)
+		return;
+		
 	clearFOV(floors[curFloor]->map, player);
 
 	curFloor++;

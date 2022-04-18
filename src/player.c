@@ -62,6 +62,9 @@ void handleInput(int input)
 			newPos.x = floors[curFloor]->start_pos.x;
 			break;
 		case 'k':
+			prevFloor();
+			newPos.y = floors[curFloor]->end_pos.y;
+			newPos.x = floors[curFloor]->end_pos.x;
 			//killMob(mobList[rand()%numMobs]);
 			//reduceMobList(rand()%numMobs);
 			break;

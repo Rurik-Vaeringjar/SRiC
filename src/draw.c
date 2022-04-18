@@ -50,5 +50,5 @@ void drawAll(void)
 	//drawObs();
 	//drawMobs();
 	drawEntity(player);
-	
+	mvprintw(0, 0, "Floor: %d", curFloor);	
 }
