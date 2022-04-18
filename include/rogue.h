@@ -64,9 +64,11 @@ typedef struct
 {
 	Mob** mobList;
 	unsigned char* numMobs;
+	unsigned char* sizeMobs;
 
 	Ob** obList;
 	unsigned char* numObs;
+	unsigned char* sizeObs;
 
 	Tile** map;
 	Pos start_pos;
@@ -131,6 +133,7 @@ void clearObList(void);
 //floors.c function prototypes
 void initFloors(void);
 Floor* createFloor(void);
+void newFloor(void);
 void freeFloors(void);
 
 

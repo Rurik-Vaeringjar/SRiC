@@ -56,6 +56,12 @@ void handleInput(int input)
 			break;
 		case 's':
 			break;
+		case 'l':
+			clearFOV(floors[curFloor]->map, player);
+			newFloor();
+			newPos.y = floors[curFloor]->start_pos.y;
+			newPos.x = floors[curFloor]->start_pos.x;
+			break;
 		case 'k':
 			//killMob(mobList[rand()%numMobs]);
 			//reduceMobList(rand()%numMobs);

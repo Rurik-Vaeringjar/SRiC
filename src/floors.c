@@ -16,6 +16,15 @@ Floor* createFloor(void)
 	return floor;
 }
 
+void newFloor(void)
+{
+	numFloors++;
+	curFloor++;
+	Floor** tempFloors = realloc(floors, sizeof(Floor*) * numFloors);
+	tempFloors[curFloor] = createFloor();
+	floors = tempFloors;
+}
+
 void freeFloors(void)
 {
 	for (int i=0; i<numFloors; i++)
