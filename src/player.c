@@ -57,14 +57,14 @@ void handleInput(int input)
 		case 's':
 			break;
 		case 'k':
-			killMob(mobList[rand()%numMobs]);
+			//killMob(mobList[rand()%numMobs]);
 			//reduceMobList(rand()%numMobs);
 			break;
 		default:
 			break;
 	}
 
-	movePlayer(newPos);
+	movePlayer(floors[curFloor]->map, newPos);
 }
 
 
@@ -76,24 +76,24 @@ void handleInput(int input)
 	return -1;
 }*/
 
-void movePlayer(Pos newPos)
+void movePlayer(Tile** map, Pos newPos)
 {
 	if (map[newPos.y][newPos.x].walkable)
 	{
 		char collision = map[newPos.y][newPos.x].occupied;
 		if (collision > -1)
 		{	
-			killMob(mobList[collision]);
+			killMob(map, mobList[collision]);
 			objectifyMob(collision);
 		}
 		else
 		{
-			clearFOV(player);
+			clearFOV(map, player);
 			map[player->pos.y][player->pos.x].occupied = -1;
 			player->pos.y = newPos.y;
 			player->pos.x = newPos.x;
 			map[newPos.y][newPos.x].occupied = -2;
-			makeFOV(player);
+			makeFOV(map, player);
 		}
 	}
 }

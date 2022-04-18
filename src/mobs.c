@@ -56,7 +56,7 @@ void freeMob(Mob* mob)
 	free(mob);
 }
 
-void reduceMobList(char index)
+void reduceMobList(Tile** map, char index)
 {
 	numMobs--;
 	if (index != numMobs)

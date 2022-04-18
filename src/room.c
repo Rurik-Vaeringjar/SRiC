@@ -13,7 +13,7 @@ Room createRoom(int y, int x, int height, int width)
 	return newRoom;
 }
 
-void addRoom(Room room)
+void addRoom(Tile** map, Room room)
 {
 	for (int y=room.pos.y; y<room.pos.y+room.height; y++)
 		for (int x=room.pos.x; x<room.pos.x+room.width; x++)
@@ -23,13 +23,13 @@ void addRoom(Room room)
 				map[y][x].walkable = true;
 				map[y][x].transparent = true;
 
-				spawnMob((Pos){y, x});
+				//spawnMob((Pos){y, x});
 			}
 			else
 				mvaddch(1, 1, '!');
 }
 
-void connectRoomsCenter(Pos cntrA, Pos cntrB)
+void connectRoomsCenter(Tile** map, Pos cntrA, Pos cntrB)
 {
 	Pos temp;
 	temp.y = cntrA.y;

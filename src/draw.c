@@ -1,6 +1,6 @@
 #include <rogue.h>
 
-void drawMap(void)
+void drawMap(Tile** map)
 {
 	for (int y=0; y<MAP_HEIGHT; y++)
 		for (int x=0; x<MAP_WIDTH; x++)
@@ -26,8 +26,8 @@ void drawObs(void)
 	{
 		y = obList[i]->entity->pos.y;
 		x = obList[i]->entity->pos.x;
-		if (map[y][x].visible)
-			drawEntity(obList[i]->entity);
+		//if (map[y][x].visible)
+		//	drawEntity(obList[i]->entity);
 	}
 }
 
@@ -38,17 +38,17 @@ void drawMobs(void)
 	{
 		y = mobList[i]->entity->pos.y;
 		x = mobList[i]->entity->pos.x;
-		if (map[y][x].visible)
-			drawEntity(mobList[i]->entity);
+		//if (map[y][x].visible)
+		//	drawEntity(mobList[i]->entity);
 	}
 }
 
 void drawAll(void)
 {
 	clear();
-	drawMap();
-	drawObs();
-	drawMobs();
+	drawMap(floors[curFloor]->map);
+	//drawObs();
+	//drawMobs();
 	drawEntity(player);
 	
 }

@@ -1,6 +1,6 @@
 #include <rogue.h>
 
-void makeFOV(Entity* player)
+void makeFOV(Tile** map, Entity* player)
 {
 	int y, x, distance, rad=15;
 	Pos target;
@@ -16,7 +16,7 @@ void makeFOV(Entity* player)
 			distance = getDistance(player->pos, target);
 
 			if(distance<rad)
-				if(isInMap(y, x) && lineOfSight(player->pos, target))
+				if(isInMap(y, x) && lineOfSight(map, player->pos, target))
 				{
 					map[y][x].visible = true;
 					map[y][x].seen = true;
@@ -24,7 +24,7 @@ void makeFOV(Entity* player)
 		}
 }
 
-void clearFOV(Entity* player)
+void clearFOV(Tile** map, Entity* player)
 {
 	int y, x, rad=15;
 	for (y=player->pos.y-rad; y<player->pos.y+rad; y++)
@@ -52,7 +52,7 @@ bool isInMap(int y, int x)
 	return false;
 }
 
-bool lineOfSight(Pos origin, Pos target)
+bool lineOfSight(Tile** map, Pos origin, Pos target)
 {
 	int t, y, x, abs_delta_y, abs_delta_x, sign_y, sign_x, delta_x, delta_y;
 	

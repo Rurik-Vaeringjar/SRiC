@@ -1,13 +1,13 @@
 #include <rogue.h>
 
-void killMob(Mob* mob)
+void killMob(Tile** map, Mob* mob)
 {
 	mob->entity->ch = '%';
 	mob->entity->color = COLOR_PAIR(CORPSE_COLOR);
 	map[mob->entity->pos.y][mob->entity->pos.x].occupied = -1;
 }
 
-void moveMob(Mob* mob)
+void moveMob(Tile** map, Mob* mob)
 {
 	Pos newPos = {mob->entity->pos.y, mob->entity->pos.x};
 	if (map[newPos.y][newPos.x].visible)
@@ -68,6 +68,6 @@ void mobsTurn()
 {
 	for (int i=0; i<numMobs; i++)
 	{
-		moveMob(mobList[i]);
+		moveMob(floors[curFloor]->map, mobList[i]);
 	}
 }

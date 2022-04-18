@@ -29,7 +29,7 @@ void gameLoop(void)
 {
 	char ch;
 
-	makeFOV(player);
+	makeFOV(floors[curFloor]->map, player);
 	drawAll();
 
 	while(ch = getch())
@@ -43,7 +43,7 @@ void gameLoop(void)
 		drawAll();
 
 		//mob's turn
-		mobsTurn();
+		//mobsTurn();
 
 		drawAll();
 	}
@@ -53,7 +53,7 @@ void closeGame(void)
 {
 	endwin();
 	free(player);
-	freeMap();
+	freeFloors();
 	clearObList();
 	free(obList);
 	clearMobList();
