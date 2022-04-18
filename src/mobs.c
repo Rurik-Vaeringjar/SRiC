@@ -26,12 +26,25 @@ void spawnMob(Pos spawn_pos)
 		mob = createMob(spawn_pos, 'o');
 
 	if (mob)
-		appendMobList(mob);
+		appendMobList(floors[curFloor]->mobList, floors[curFloor]->sizeMobs, floors[curFloor]->numMobs, mob);
 }
 
-void appendMobList(Mob* newMob)
+void initMobList(Mob** mobList, unsigned char* sizeMobs, unsigned char* numMobs)
 {
-	if (numMobs == 0)
+	mobList = calloc(8, sizeof(Mob*));
+
+	void* mSizeMobs = malloc(sizeof(unsigned char));
+	sizeMobs = (unsigned char*)mSizeMobs;
+	*sizeMobs = 8;
+
+	void* mNumMobs = malloc(sizeof(unsigned char));
+	numMobs = (unsigned char*)mNumMobs;
+	*numMobs = 0;
+}
+
+void appendMobList(Mob** mobList, unsigned char* sizeMobs, unsigned char* numMobs, Mob* newMob)
+{
+	/*if (numMobs == 0)
 	{
 		mobList = calloc(1, sizeof(Mob*));
 		mobList[0] = newMob;
@@ -46,8 +59,16 @@ void appendMobList(Mob* newMob)
 		tempList[i] = newMob;
 		tempList[i]->index = i;
 		mobList = tempList;
-	}
+	}*/
 }
+
+void resizeMobList(Mob** mobList, unsigned char* sizeMobs)
+{
+	*sizeMobs = *sizeMobs * 2;
+	Mob** tempList = realloc(mobList, sizeof(Mob*) * *sizeMobs);
+	mobList = tempList;
+}
+
 
 //----------------------------------------------------------------- FREE
 void freeMob(Mob* mob)
@@ -56,20 +77,20 @@ void freeMob(Mob* mob)
 	free(mob);
 }
 
-void reduceMobList(Tile** map, char index)
+void reduceMobList(Tile** map, Mob** mobList, unsigned char* numMobs, char index)
 {
-	numMobs--;
-	if (index != numMobs)
+	/*(*numMobs)--;
+	if (index != *numMobs)
 	{
 		Mob* temp = mobList[index];
-		mobList[index] = mobList[numMobs];
+		mobList[index] = mobList[*numMobs];
 		mobList[index]->index = index;
 		map[mobList[index]->entity->pos.y][mobList[index]->entity->pos.x].occupied = index;
-		mobList[numMobs] = temp;	
+		mobList[*numMobs] = temp;	
 	}
-	free(mobList[numMobs]);
+	free(mobList[*numMobs]);
 	Mob** tempList = realloc(mobList, sizeof(Mob*) * numMobs);
-	mobList = tempList;
+	mobList = tempList;*/
 }
 
 void clearMobList(void)

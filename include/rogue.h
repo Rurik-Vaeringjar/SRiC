@@ -118,9 +118,10 @@ void mobsTurn(void);
 //mobs.c function prototypes
 Mob* createMob(Pos spawn_pos, char ch);
 void spawnMob(Pos spawn_pos);
-void appendMobList(Mob* newMob);
+void appendMobList(Mob** mobList, unsigned char* sizeMobs, unsigned char* numMobs, Mob* newMob);
+void resizeMobList(Mob** mobList, unsigned char* sizeMobs);
 void freeMob(Mob* mob);
-void reduceMobList(Tile** map, char index);
+void reduceMobList(Tile** map, Mob** mobList, unsigned char* numMobs, char index);
 void clearMobList(void);
 
 //obs.c function prototypes
