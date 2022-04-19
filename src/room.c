@@ -13,17 +13,17 @@ Room createRoom(int y, int x, int height, int width)
 	return newRoom;
 }
 
-void addRoom(Tile** map, Room room)
+void addRoom(Floor* floor, Room room)
 {
 	for (int y=room.pos.y; y<room.pos.y+room.height; y++)
 		for (int x=room.pos.x; x<room.pos.x+room.width; x++)
 			if(y<MAP_HEIGHT && y>0 && x<MAP_WIDTH && x>0)
 			{
-				map[y][x].ch = '.';
-				map[y][x].walkable = true;
-				map[y][x].transparent = true;
+				floor->map[y][x].ch = '.';
+				floor->map[y][x].walkable = true;
+				floor->map[y][x].transparent = true;
 
-				//spawnMob((Pos){y, x});
+				spawnMob(floor, (Pos){y, x});
 			}
 			else
 				mvaddch(1, 1, '!');

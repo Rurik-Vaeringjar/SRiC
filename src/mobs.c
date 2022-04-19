@@ -14,7 +14,7 @@ Mob* createMob(Pos spawn_pos, char ch)
 	return newMob;
 }
 
-void spawnMob(Pos spawn_pos)
+void spawnMob(Floor* floor, Pos spawn_pos)
 {
 	Mob* mob=NULL;
 
@@ -26,47 +26,40 @@ void spawnMob(Pos spawn_pos)
 		mob = createMob(spawn_pos, 'o');
 
 	if (mob)
-		appendMobList(floors[curFloor]->mobList, floors[curFloor]->sizeMobs, floors[curFloor]->numMobs, mob);
+		appendMobList(floor, mob);
 }
 
-void initMobList(Mob** mobList, unsigned char* sizeMobs, unsigned char* numMobs)
+void initMobList(Floor* floor)
 {
-	mobList = calloc(8, sizeof(Mob*));
+	floor->mobList = calloc(8, sizeof(Mob*));
 
-	void* mSizeMobs = malloc(sizeof(unsigned char));
-	sizeMobs = (unsigned char*)mSizeMobs;
-	*sizeMobs = 8;
+	void* mSizeMobs = malloc(sizeof(char));
+	floor->sizeMobs = (char*)mSizeMobs;
+	*(floor->sizeMobs) = 8;
 
-	void* mNumMobs = malloc(sizeof(unsigned char));
-	numMobs = (unsigned char*)mNumMobs;
-	*numMobs = 0;
+	void* mNumMobs = malloc(sizeof(char));
+	floor->numMobs = (char*)mNumMobs;
+	*(floor->numMobs) = 0;
+
+	printf("sizeMobs = %d and numMobs = %d\n", *(floor->sizeMobs), *(floor->numMobs));
+	printf("%p, %p, and %p\n", floor->mobList, floor->sizeMobs, floor->numMobs);
 }
 
-void appendMobList(Mob** mobList, unsigned char* sizeMobs, unsigned char* numMobs, Mob* newMob)
+void appendMobList(Floor* floor, Mob* newMob)
 {
-	/*if (numMobs == 0)
-	{
-		mobList = calloc(1, sizeof(Mob*));
-		mobList[0] = newMob;
-		mobList[0]->index = 0;
-		numMobs++;
-	}
-	else
-	{
-		numMobs++;
-		char i = numMobs-1;
-		Mob** tempList = realloc(mobList, sizeof(Mob*) * numMobs);
-		tempList[i] = newMob;
-		tempList[i]->index = i;
-		mobList = tempList;
-	}*/
+		(*(floor->numMobs))++;
+		if (*(floor->numMobs) == *(floor->sizeMobs))
+			resizeMobList(floor);
+		
+		char i = *(floor->numMobs)-1;
+		floor->mobList[i] = newMob;
 }
 
-void resizeMobList(Mob** mobList, unsigned char* sizeMobs)
+void resizeMobList(Floor* floor)
 {
-	*sizeMobs = *sizeMobs * 2;
-	Mob** tempList = realloc(mobList, sizeof(Mob*) * *sizeMobs);
-	mobList = tempList;
+	*(floor->sizeMobs) = *(floor->sizeMobs) * 2;
+	Mob** tempList = realloc(floor->mobList, sizeof(Mob*) * *(floor->sizeMobs));
+	floor->mobList = tempList;
 }
 
 
@@ -77,26 +70,25 @@ void freeMob(Mob* mob)
 	free(mob);
 }
 
-void reduceMobList(Tile** map, Mob** mobList, unsigned char* numMobs, char index)
+void reduceMobList(Tile** map, Mob** mobList, char* numMobs, char index)
 {
-	/*(*numMobs)--;
+	(*numMobs)--;
 	if (index != *numMobs)
 	{
 		Mob* temp = mobList[index];
 		mobList[index] = mobList[*numMobs];
 		mobList[index]->index = index;
 		map[mobList[index]->entity->pos.y][mobList[index]->entity->pos.x].occupied = index;
-		mobList[*numMobs] = temp;	
+		mobList[*numMobs] = temp;
 	}
-	free(mobList[*numMobs]);
-	Mob** tempList = realloc(mobList, sizeof(Mob*) * numMobs);
-	mobList = tempList;*/
 }
 
-void clearMobList(void)
+void freeMobList(Mob** mobList, char* sizeMobs, char* numMobs)
 {
 	//Notice: Do not free(mobList) here
-	for (int i=0; i<numMobs; i++)
+	for (int i=0; i<*sizeMobs; i++)
 		freeMob(mobList[i]);
-	numMobs = 0;
+	free(mobList);
+	free(sizeMobs);
+	free(numMobs);
 }

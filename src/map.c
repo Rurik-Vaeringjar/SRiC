@@ -22,7 +22,7 @@ Tile** createMapTiles(void)
 	return tiles;
 }
 
-Pos* setupMap(Tile** map)
+Pos* setupMap(Floor* floor)
 {
 	int y, x, height, width, n_rooms;
 	n_rooms = rand()%11 + 10;
@@ -36,10 +36,10 @@ Pos* setupMap(Tile** map)
 		height = rand()%7 + 3;
 		width = rand()%15 + 5;
 		rooms[i] = createRoom(y, x, height, width);
-		addRoom(map, rooms[i]);
+		addRoom(floor, rooms[i]);
 	
 		if (i > 0)
-			connectRoomsCenter(map, rooms[i-1].cntr, rooms[i].cntr);
+			connectRoomsCenter(floor->map, rooms[i-1].cntr, rooms[i].cntr);
 	}
 
 	pos[0].y = rooms[0].cntr.y;

@@ -43,7 +43,7 @@ void gameLoop(void)
 		drawAll();
 
 		//mob's turn
-		//mobsTurn();
+		mobsTurn();
 
 		drawAll();
 	}
@@ -56,6 +56,4 @@ void closeGame(void)
 	freeFloors();
 	clearObList();
 	free(obList);
-	clearMobList();
-	free(mobList);
 }

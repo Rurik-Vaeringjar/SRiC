@@ -72,7 +72,7 @@ void handleInput(int input)
 			break;
 	}
 
-	movePlayer(floors[curFloor]->map, newPos);
+	movePlayer(floors[curFloor], newPos);
 }
 
 
@@ -84,24 +84,24 @@ void handleInput(int input)
 	return -1;
 }*/
 
-void movePlayer(Tile** map, Pos newPos)
+void movePlayer(Floor* floor, Pos newPos)
 {
-	if (map[newPos.y][newPos.x].walkable)
+	if (floor->map[newPos.y][newPos.x].walkable)
 	{
-		char collision = map[newPos.y][newPos.x].occupied;
+		char collision = floor->map[newPos.y][newPos.x].occupied;
 		if (collision > -1)
 		{	
-			killMob(map, mobList[collision]);
-			objectifyMob(collision);
+			killMob(floor->map, floor->mobList[collision]);
+			//objectifyMob(collision);
 		}
 		else
 		{
-			clearFOV(map, player);
-			map[player->pos.y][player->pos.x].occupied = -1;
+			clearFOV(floor->map, player);
+			floor->map[player->pos.y][player->pos.x].occupied = -1;
 			player->pos.y = newPos.y;
 			player->pos.x = newPos.x;
-			map[newPos.y][newPos.x].occupied = -2;
-			makeFOV(map, player);
+			floor->map[newPos.y][newPos.x].occupied = -2;
+			makeFOV(floor->map, player);
 		}
 	}
 }

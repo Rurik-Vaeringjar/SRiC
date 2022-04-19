@@ -1,4 +1,5 @@
 #include <rogue.h>
+#include <stdio.h>
 
 void initFloors(void)
 {
@@ -12,8 +13,12 @@ Floor* createFloor(void)
 	Floor* floor = calloc(1, sizeof(Floor));
 	floor->map = createMapTiles();
 	
+	initMobList(floor);
+	printf("sizeMobs = %d and numMobs = %d\n", *(floor->sizeMobs), *(floor->numMobs));
+	printf("%p, %p, and %p\n", floor->mobList, floor->sizeMobs, floor->numMobs);
+
 	Pos* pos; 
-	pos = setupMap(floor->map);
+	pos = setupMap(floor);
 	floor->start_pos.y = pos[0].y;
 	floor->start_pos.x = pos[0].x;
 	floor->end_pos.y = pos[1].y;
@@ -35,7 +40,7 @@ void nextFloor(void)
 {
 	if (curFloor == 254)
 		return;
-		
+
 	clearFOV(floors[curFloor]->map, player);
 
 	curFloor++;
@@ -64,5 +69,6 @@ void freeFloors(void)
 	for (int i=0; i<numFloors; i++)
 	{
 		freeMap(floors[i]->map);
+		freeMobList(floors[i]->mobList, floors[i]->sizeMobs, floors[i]->numMobs);
 	}
 }

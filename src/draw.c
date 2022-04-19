@@ -31,15 +31,15 @@ void drawObs(void)
 	}
 }
 
-void drawMobs(void)
+void drawMobs(Floor* floor)
 {
 	int y, x;
-	for (int i=0; i<numMobs; i++)
+	for (int i=0; i<*(floor->numMobs); i++)
 	{
-		y = mobList[i]->entity->pos.y;
-		x = mobList[i]->entity->pos.x;
-		//if (map[y][x].visible)
-		//	drawEntity(mobList[i]->entity);
+		y = floor->mobList[i]->entity->pos.y;
+		x = floor->mobList[i]->entity->pos.x;
+		if (floor->map[y][x].visible)
+			drawEntity(floor->mobList[i]->entity);
 	}
 }
 
@@ -48,7 +48,10 @@ void drawAll(void)
 	clear();
 	drawMap(floors[curFloor]->map);
 	//drawObs();
-	//drawMobs();
+	drawMobs(floors[curFloor]);
 	drawEntity(player);
-	mvprintw(0, 0, "Floor: %d", curFloor);	
+	mvprintw(0, 0, "Floor: %d", curFloor);
+	mvprintw(1, 0, "mobList(%p) with sizeMob(%p) = %d, numMob(%p) = %d", floors[curFloor]->mobList, 
+					floors[curFloor]->sizeMobs, *(floors[curFloor]->sizeMobs), 
+					floors[curFloor]->numMobs, *(floors[curFloor]->numMobs));
 }

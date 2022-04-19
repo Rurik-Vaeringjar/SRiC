@@ -63,12 +63,12 @@ typedef struct Ob
 typedef struct
 {
 	Mob** mobList;
-	unsigned char* numMobs;
-	unsigned char* sizeMobs;
+	char* numMobs;
+	char* sizeMobs;
 
 	Ob** obList;
-	unsigned char* numObs;
-	unsigned char* sizeObs;
+	char* numObs;
+	char* sizeObs;
 
 	Tile** map;
 	Pos start_pos;
@@ -79,7 +79,7 @@ typedef struct
 void drawMap(Tile** map);
 void drawEntity(Entity* entity);
 void drawObs(void);
-void drawMobs(void);
+void drawMobs(Floor* floor);
 void drawAll(void);
 
 //engine.c function prototypes
@@ -89,12 +89,12 @@ void closeGame(void);
 
 //map.c function prototypes
 Tile** createMapTiles(void);
-Pos* setupMap(Tile** map);
+Pos* setupMap(Floor* floor);
 void freeMap(Tile** map);
 
 //room.c function prototypes
 Room createRoom(int y, int x, int height, int width);
-void addRoom(Tile** map, Room room);
+void addRoom(Floor* floor, Room room);
 void connectRoomsCenter(Tile** map, Pos cntrA, Pos cntrB);
 
 //fov.c function prototypes
@@ -108,7 +108,7 @@ int getSign(int a);
 //player.c function protoypes
 Entity* createPlayer(Pos start_pos);
 void handleInput(int input);
-void movePlayer(Tile** map, Pos newPos);
+void movePlayer(Floor* floor, Pos newPos);
 
 //mob.c function prototypes
 void killMob(Tile** map, Mob* mob);
@@ -117,12 +117,13 @@ void mobsTurn(void);
 
 //mobs.c function prototypes
 Mob* createMob(Pos spawn_pos, char ch);
-void spawnMob(Pos spawn_pos);
-void appendMobList(Mob** mobList, unsigned char* sizeMobs, unsigned char* numMobs, Mob* newMob);
-void resizeMobList(Mob** mobList, unsigned char* sizeMobs);
+void spawnMob(Floor* floor, Pos spawn_pos);
+void initMobList(Floor* floor);
+void appendMobList(Floor* floor, Mob* newMob);
+void resizeMobList(Floor* floor);
 void freeMob(Mob* mob);
-void reduceMobList(Tile** map, Mob** mobList, unsigned char* numMobs, char index);
-void clearMobList(void);
+void reduceMobList(Tile** map, Mob** mobList, char* numMobs, char index);
+void freeMobList(Mob** mobList, char* sizeMobs, char* numMobs);
 
 //obs.c function prototypes
 void objectifyMob(char index);
