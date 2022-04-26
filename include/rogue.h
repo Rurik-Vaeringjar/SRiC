@@ -63,12 +63,12 @@ typedef struct Ob
 typedef struct
 {
 	Mob** mobList;
-	char* numMobs;
-	char* sizeMobs;
+	char numMobs;
+	char sizeMobs;
 
 	Ob** obList;
-	char* numObs;
-	char* sizeObs;
+	char numObs;
+	char sizeObs;
 
 	Tile** map;
 	Pos start_pos;
@@ -122,8 +122,8 @@ void initMobList(Floor* floor);
 void appendMobList(Floor* floor, Mob* newMob);
 void resizeMobList(Floor* floor);
 void freeMob(Mob* mob);
-void reduceMobList(Tile** map, Mob** mobList, char* numMobs, char index);
-void freeMobList(Mob** mobList, char* sizeMobs, char* numMobs);
+void reduceMobList(Floor* floor, char index);
+void freeMobList(Floor* floor);
 
 //obs.c function prototypes
 void objectifyMob(char index);

@@ -31,34 +31,28 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 
 void initMobList(Floor* floor)
 {
-	floor->mobList = calloc(8, sizeof(Mob*));
+	floor->mobList = calloc(16, sizeof(Mob*));
+	floor->sizeMobs = 16;
+	floor->numMobs = 0;
 
-	void* mSizeMobs = malloc(sizeof(char));
-	floor->sizeMobs = (char*)mSizeMobs;
-	*(floor->sizeMobs) = 8;
-
-	void* mNumMobs = malloc(sizeof(char));
-	floor->numMobs = (char*)mNumMobs;
-	*(floor->numMobs) = 0;
-
-	printf("sizeMobs = %d and numMobs = %d\n", *(floor->sizeMobs), *(floor->numMobs));
-	printf("%p, %p, and %p\n", floor->mobList, floor->sizeMobs, floor->numMobs);
+	//printf("sizeMobs = %d and numMobs = %d\n", *(floor->sizeMobs), *(floor->numMobs));
+	//printf("%p, %p, and %p\n", floor->mobList, floor->sizeMobs, floor->numMobs);
 }
 
 void appendMobList(Floor* floor, Mob* newMob)
 {
-		(*(floor->numMobs))++;
-		if (*(floor->numMobs) == *(floor->sizeMobs))
+		floor->numMobs++;
+		if (floor->numMobs == floor->sizeMobs)
 			resizeMobList(floor);
 		
-		char i = *(floor->numMobs)-1;
+		char i = floor->numMobs-1;
 		floor->mobList[i] = newMob;
 }
 
 void resizeMobList(Floor* floor)
 {
-	*(floor->sizeMobs) = *(floor->sizeMobs) * 2;
-	Mob** tempList = realloc(floor->mobList, sizeof(Mob*) * *(floor->sizeMobs));
+	floor->sizeMobs = floor->sizeMobs * 2;
+	Mob** tempList = realloc(floor->mobList, sizeof(Mob*) * floor->sizeMobs);
 	floor->mobList = tempList;
 }
 
@@ -70,25 +64,24 @@ void freeMob(Mob* mob)
 	free(mob);
 }
 
-void reduceMobList(Tile** map, Mob** mobList, char* numMobs, char index)
+void reduceMobList(Floor* floor, char index)
 {
-	(*numMobs)--;
-	if (index != *numMobs)
+	floor->numMobs--;
+	if (index != floor->numMobs)
 	{
-		Mob* temp = mobList[index];
-		mobList[index] = mobList[*numMobs];
-		mobList[index]->index = index;
-		map[mobList[index]->entity->pos.y][mobList[index]->entity->pos.x].occupied = index;
-		mobList[*numMobs] = temp;
+		Mob* temp = floor->mobList[index];
+		floor->mobList[index] = floor->mobList[floor->numMobs];
+		floor->mobList[index]->index = index;
+		floor->map[floor->mobList[index]->entity->pos.y][floor->mobList[index]->entity->pos.x].occupied = index;
+		floor->mobList[floor->numMobs] = temp;
 	}
+	free(floor->mobList[floor->numMobs]);
 }
 
-void freeMobList(Mob** mobList, char* sizeMobs, char* numMobs)
+void freeMobList(Floor* floor)
 {
 	//Notice: Do not free(mobList) here
-	for (int i=0; i<*sizeMobs; i++)
-		freeMob(mobList[i]);
-	free(mobList);
-	free(sizeMobs);
-	free(numMobs);
+	for (int i=0; i<floor->numMobs; i++)
+		freeMob(floor->mobList[i]);
+	free(floor->mobList);
 }

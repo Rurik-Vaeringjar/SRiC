@@ -92,7 +92,7 @@ void movePlayer(Floor* floor, Pos newPos)
 		if (collision > -1)
 		{	
 			killMob(floor->map, floor->mobList[collision]);
-			//objectifyMob(collision);
+			objectifyMob(collision);
 		}
 		else
 		{

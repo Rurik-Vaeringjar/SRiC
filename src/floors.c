@@ -14,8 +14,8 @@ Floor* createFloor(void)
 	floor->map = createMapTiles();
 	
 	initMobList(floor);
-	printf("sizeMobs = %d and numMobs = %d\n", *(floor->sizeMobs), *(floor->numMobs));
-	printf("%p, %p, and %p\n", floor->mobList, floor->sizeMobs, floor->numMobs);
+	printf("sizeMobs = %d and numMobs = %d\n", floor->sizeMobs, floor->numMobs);
+	printf("%p, %p, and %p\n", floor->mobList, &floor->sizeMobs, &floor->numMobs);
 
 	Pos* pos; 
 	pos = setupMap(floor);
@@ -69,6 +69,6 @@ void freeFloors(void)
 	for (int i=0; i<numFloors; i++)
 	{
 		freeMap(floors[i]->map);
-		freeMobList(floors[i]->mobList, floors[i]->sizeMobs, floors[i]->numMobs);
+		freeMobList(floors[i]);
 	}
 }

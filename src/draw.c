@@ -34,7 +34,7 @@ void drawObs(void)
 void drawMobs(Floor* floor)
 {
 	int y, x;
-	for (int i=0; i<*(floor->numMobs); i++)
+	for (int i=0; i<floor->numMobs; i++)
 	{
 		y = floor->mobList[i]->entity->pos.y;
 		x = floor->mobList[i]->entity->pos.x;
@@ -52,6 +52,6 @@ void drawAll(void)
 	drawEntity(player);
 	mvprintw(0, 0, "Floor: %d", curFloor);
 	mvprintw(1, 0, "mobList(%p) with sizeMob(%p) = %d, numMob(%p) = %d", floors[curFloor]->mobList, 
-					floors[curFloor]->sizeMobs, *(floors[curFloor]->sizeMobs), 
-					floors[curFloor]->numMobs, *(floors[curFloor]->numMobs));
+					&floors[curFloor]->sizeMobs, floors[curFloor]->sizeMobs, 
+					&floors[curFloor]->numMobs, floors[curFloor]->numMobs);
 }

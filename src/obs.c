@@ -2,10 +2,10 @@
 
 void objectifyMob(char index)
 {
-	Ob* newOb = calloc(1, sizeof(Ob));
-	newOb->entity = mobList[index]->entity;
-	appendObList(newOb);
-	//reduceMobList(floors[curFloor]->map, index);
+	//Ob* newOb = calloc(1, sizeof(Ob));
+	//newOb->entity = mobList[index]->entity;
+	//appendObList(newOb);
+	reduceMobList(floors[curFloor], index);
 }
 
 void appendObList(Ob* newOb)

@@ -66,7 +66,7 @@ void moveMob(Tile** map, Mob* mob)
 
 void mobsTurn()
 {
-	for (int i=0; i<*(floors[curFloor]->numMobs); i++)
+	for (int i=0; i<floors[curFloor]->numMobs; i++)
 	{
 		moveMob(floors[curFloor]->map, floors[curFloor]->mobList[i]);
 	}
