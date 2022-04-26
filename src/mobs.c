@@ -42,7 +42,7 @@ void initMobList(Floor* floor)
 void appendMobList(Floor* floor, Mob* newMob)
 {
 		floor->numMobs++;
-		if (floor->numMobs == floor->sizeMobs)
+		if (floor->numMobs > floor->sizeMobs)
 			resizeMobList(floor);
 		
 		char i = floor->numMobs-1;

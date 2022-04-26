@@ -19,7 +19,7 @@ void initObList(Floor* floor)
 void appendObList(Floor* floor, Ob* newOb)
 {
 	floor->numObs++;
-		if (floor->numObs == floor->sizeObs)
+		if (floor->numObs > floor->sizeObs)
 			resizeObList(floor);
 		
 		char i = floor->numObs-1;
@@ -31,9 +31,9 @@ void appendObList(Floor* floor, Ob* newOb)
 
 void resizeObList(Floor* floor)
 {
-	floor->sizeMobs = floor->sizeMobs +8;
-	Mob** tempList = realloc(floor->mobList, sizeof(Mob*) * floor->sizeMobs);
-	floor->mobList = tempList;
+	floor->sizeObs = floor->sizeObs +8;
+	Ob** tempList = realloc(floor->obList, sizeof(Ob*) * floor->sizeObs);
+	floor->obList = tempList;
 }
 
 void freeOb(Ob* ob)
