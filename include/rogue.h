@@ -6,6 +6,7 @@
 #include <time.h>
 #include <math.h>
 
+
 //color pairs
 #define VISIBLE_COLOR 1
 #define SEEN_COLOR 2
@@ -15,6 +16,9 @@
 //game states
 #define PLAYER_TURN 0
 #define MOB_TURN 1
+
+#define STAIRS (1 << 0) // 1
+#define CORPSE (1 << 1) // 2
 
 typedef struct
 {
@@ -58,6 +62,7 @@ typedef struct Ob
 {
 	Entity* entity;
 	char index;
+	uint8_t type;
 } Ob;
 
 typedef struct
@@ -78,7 +83,7 @@ typedef struct
 //draw.c function prototypes
 void drawMap(Tile** map);
 void drawEntity(Entity* entity);
-void drawObs(void);
+void drawObs(Floor* floor);
 void drawMobs(Floor* floor);
 void drawAll(void);
 
@@ -127,10 +132,12 @@ void freeMobList(Floor* floor);
 
 //obs.c function prototypes
 void objectifyMob(char index);
-void appendObList(Ob* newOb);
+void initObList(Floor* floor);
+void appendObList(Floor* floor, Ob* newOb);
+void resizeObList(Floor* floor);
 void freeOb(Ob* ob);
-void reduceObList(char index);
-void clearObList(void);
+void reduceObList(Floor* floor, char index);
+void freeObList(Floor* floor);
 
 //floors.c function prototypes
 void initFloors(void);

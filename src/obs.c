@@ -2,30 +2,22 @@
 
 void objectifyMob(char index)
 {
-	//Ob* newOb = calloc(1, sizeof(Ob));
-	//newOb->entity = mobList[index]->entity;
-	//appendObList(newOb);
+	Ob* newOb = calloc(1, sizeof(Ob));
+	newOb->entity = floors[curFloor]->mobList[index]->entity;
+	appendObList(floors[curFloor], newOb);
 	reduceMobList(floors[curFloor], index);
 }
 
-void appendObList(Ob* newOb)
+void initObList(Floor* floor)
 {
-	if (numObs == 0)
-	{
-		obList = calloc(1, sizeof(Ob*));
-		obList[0] = newOb;
-		obList[0]->index = 0;
-		numObs++;
-	}
-	else
-	{
-		numObs++;
-		char i = numObs-1;
-		Ob** tempList = realloc(obList, sizeof(Ob*) * numObs);
-		tempList[i] = newOb;
-		tempList[i]->index = i;
-		obList = tempList;
-	}
+	floor->obList = calloc(8, sizeof(Ob*));
+	floor->sizeObs = 8;
+	floor->numObs = 0;
+}
+
+void appendObList(Floor* floor, Ob* newOb)
+{
+	floor->numObs++;
 }
 
 void freeOb(Ob* ob)
