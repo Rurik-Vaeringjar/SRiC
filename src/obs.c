@@ -48,9 +48,9 @@ void reduceObList(Floor* floor, char index)
 	if (index != floor->numObs)
 	{
 		Ob* temp = obList[index];
-		obList[index] = obList[numObs];
+		obList[index] = obList[nObs];
 		obList[index]->index = index;
-		obList[numObs] = temp;	
+		obList[nObs] = temp;	
 	}
 	freeOb(obList[numObs]);
 	Ob** tempList = realloc(obList, sizeof(Ob*) * numObs);

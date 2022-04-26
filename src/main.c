@@ -1,4 +1,5 @@
 #include <rogue.h>
+#include <stdio.h>
 
 const int MAP_HEIGHT = 35;
 const int MAP_WIDTH = 150;
@@ -16,9 +17,15 @@ Floor** floors;
 int main(void)
 {
 	Pos start_pos;
+	unsigned char nMobs = 0;
+	numMobs = &nMobs;
+	
+	unsigned char nObs = 0;
+	numObs = &nObs;
 
 	if(cursesSetup())
 	{
+
 		srand(time(NULL));
 		initFloors();
 		//map = createMapTiles();

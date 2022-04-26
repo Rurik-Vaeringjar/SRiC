@@ -157,6 +157,14 @@ void nextFloor(void);
 void prevFloor(void);
 void freeFloors(void);
 
+//floor.c function prototypes
+void initFloors(void);
+void addFloor(Floor* floor);
+Floor* createFloor(void);
+void newFloor(void);
+void saveFloor(void);
+void loadFloor(unsigned char index);
+void freeFloors(void);
 
 //externs
 extern const int MAP_HEIGHT;
