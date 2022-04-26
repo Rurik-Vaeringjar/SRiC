@@ -3,6 +3,7 @@
 
 #include <ncurses.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <time.h>
 #include <math.h>
 
@@ -17,8 +18,16 @@
 #define PLAYER_TURN 0
 #define MOB_TURN 1
 
+//object flags
 #define STAIRS (1 << 0) // 1
 #define CORPSE (1 << 1) // 2
+
+
+//flag macros
+#define SET(n, f) ((n) |= (f))
+#define CLR(n, f) ((n) &= ~(f))
+#define TGL(n, f) ((n) ^= (f))
+#define CHK(n, f) ((n) & (f))
 
 typedef struct
 {
@@ -35,6 +44,7 @@ typedef struct
 	bool visible;
 	bool seen;
 	char occupied;
+	uint8_t obFlags;
 } Tile;
 
 typedef struct
@@ -156,8 +166,6 @@ extern unsigned char curFloor;
 extern char numMobs;
 extern char numObs;
 extern Entity* player;
-extern Mob** mobList;
-extern Ob** obList;
 extern Floor** floors;
 
 

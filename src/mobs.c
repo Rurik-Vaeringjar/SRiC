@@ -56,8 +56,6 @@ void resizeMobList(Floor* floor)
 	Mob** tempList = realloc(floor->mobList, sizeof(Mob*) * floor->sizeMobs);
 	floor->mobList = tempList;
 }
-
-
 //----------------------------------------------------------------- FREE
 void freeMob(Mob* mob)
 {

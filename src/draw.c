@@ -19,15 +19,15 @@ void drawEntity(Entity* entity)
 	mvaddch(entity->pos.y, entity->pos.x, entity->ch | entity->color);
 }
 
-void drawObs(void)
+void drawObs(Floor* floor)
 {
 	int y, x;
-	for(int i=0; i<numObs; i++)
+	for(int i=floor->numObs-1; i>=0; i--)
 	{
-		y = obList[i]->entity->pos.y;
-		x = obList[i]->entity->pos.x;
-		//if (map[y][x].visible)
-		//	drawEntity(obList[i]->entity);
+		y = floor->obList[i]->entity->pos.y;
+		x = floor->obList[i]->entity->pos.x;
+		if (floor->map[y][x].visible)
+			drawEntity(floor->obList[i]->entity);
 	}
 }
 
@@ -47,11 +47,21 @@ void drawAll(void)
 {
 	clear();
 	drawMap(floors[curFloor]->map);
-	//drawObs();
+	drawObs(floors[curFloor]);
 	drawMobs(floors[curFloor]);
 	drawEntity(player);
+	
+	//shitty placeholder text
 	mvprintw(0, 0, "Floor: %d", curFloor);
 	mvprintw(1, 0, "mobList(%p) with sizeMob(%p) = %d, numMob(%p) = %d", floors[curFloor]->mobList, 
 					&floors[curFloor]->sizeMobs, floors[curFloor]->sizeMobs, 
 					&floors[curFloor]->numMobs, floors[curFloor]->numMobs);
+	mvprintw(2, 0, "obList(%p) with sizeOb(%p) = %d, numOb(%p) = %d", floors[curFloor]->obList, 
+					&floors[curFloor]->sizeObs, floors[curFloor]->sizeObs, 
+					&floors[curFloor]->numObs, floors[curFloor]->numObs);
+	
+	if CHK(floors[curFloor]->map[player->pos.y][player->pos.x].obFlags, STAIRS)
+		mvprintw(3, 0, "stairs");
+	else if CHK(floors[curFloor]->map[player->pos.y][player->pos.x].obFlags, CORPSE)
+		mvprintw(3, 0, "corpse");
 }

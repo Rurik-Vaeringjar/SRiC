@@ -54,6 +54,4 @@ void closeGame(void)
 	endwin();
 	free(player);
 	freeFloors();
-	clearObList();
-	free(obList);
 }

@@ -4,6 +4,7 @@ void objectifyMob(char index)
 {
 	Ob* newOb = calloc(1, sizeof(Ob));
 	newOb->entity = floors[curFloor]->mobList[index]->entity;
+	SET(newOb->type, CORPSE);
 	appendObList(floors[curFloor], newOb);
 	reduceMobList(floors[curFloor], index);
 }
@@ -18,6 +19,21 @@ void initObList(Floor* floor)
 void appendObList(Floor* floor, Ob* newOb)
 {
 	floor->numObs++;
+		if (floor->numObs == floor->sizeObs)
+			resizeObList(floor);
+		
+		char i = floor->numObs-1;
+		SET(floor->map[newOb->entity->pos.y][newOb->entity->pos.x].obFlags, newOb->type);
+		floor->obList[i] = newOb;
+		floor->obList[i]->index = i;
+		
+}
+
+void resizeObList(Floor* floor)
+{
+	floor->sizeMobs = floor->sizeMobs +8;
+	Mob** tempList = realloc(floor->mobList, sizeof(Mob*) * floor->sizeMobs);
+	floor->mobList = tempList;
 }
 
 void freeOb(Ob* ob)
@@ -26,10 +42,10 @@ void freeOb(Ob* ob)
 	free(ob);
 }
 
-void reduceObList(char index)
+void reduceObList(Floor* floor, char index)
 {
-	numObs--;
-	if (index != numObs)
+	/*floor->numObs--;
+	if (index != floor->numObs)
 	{
 		Ob* temp = obList[index];
 		obList[index] = obList[numObs];
@@ -38,13 +54,13 @@ void reduceObList(char index)
 	}
 	freeOb(obList[numObs]);
 	Ob** tempList = realloc(obList, sizeof(Ob*) * numObs);
-	obList = tempList;
+	obList = tempList;*/
 }
 
-void clearObList(void)
+void freeObList(Floor* floor)
 {
 	//Notice: Do not free(obList) here
-	for (int i=0; i<numObs; i++)
-		freeOb(obList[i]);
-	numObs = 0;
+	for (int i=0; i<floor->numObs; i++)
+		freeOb(floor->obList[i]);
+	free(floor->obList);
 }

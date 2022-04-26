@@ -10,8 +10,6 @@ char numMobs = 0;
 char numObs = 0;
 
 Entity* player;
-Mob** mobList;
-Ob** obList;
 Floor** floors;
 
 
