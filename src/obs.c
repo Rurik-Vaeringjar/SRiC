@@ -13,7 +13,9 @@ void initObList(Floor* floor)
 {
 	floor->obList = calloc(8, sizeof(Ob*));
 	floor->sizeObs = 8;
-	floor->numObs = 0;
+	floor->numObs = 2;
+	if (curFloor == 0)
+		floor->numObs--;
 }
 
 void appendObList(Floor* floor, Ob* newOb)

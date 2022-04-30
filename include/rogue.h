@@ -166,6 +166,10 @@ void saveFloor(void);
 void loadFloor(unsigned char index);
 void freeFloors(void);
 
+//stairs.c
+Ob* createStairs(Pos pos, char ch);
+void useStairs(Floor* floor);
+
 //externs
 extern const int MAP_HEIGHT;
 extern const int MAP_WIDTH;

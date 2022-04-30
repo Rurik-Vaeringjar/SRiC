@@ -14,7 +14,9 @@ Entity* createPlayer(Pos start_pos)
 
 void handleInput(int input)
 {
+	bool move = true;
 	Pos newPos = {player->pos.y, player->pos.x};
+	
 
 	switch(input)
 	{
@@ -65,16 +67,14 @@ void handleInput(int input)
 		//wait
 		case 'S':
 		case 's':
+			move = false;
 			break;
 		case 'l':
-			nextFloor();
-			newPos.y = floors[curFloor]->start_pos.y;
-			newPos.x = floors[curFloor]->start_pos.x;
+			move = false;
+			useStairs(floors[curFloor]);
 			break;
 		case 'k':
-			prevFloor();
-			newPos.y = floors[curFloor]->end_pos.y;
-			newPos.x = floors[curFloor]->end_pos.x;
+			
 			//killMob(mobList[rand()%numMobs]);
 			//reduceMobList(rand()%numMobs);
 			break;
@@ -82,7 +82,8 @@ void handleInput(int input)
 			break;
 	}
 
-	movePlayer(floors[curFloor], newPos);
+	if (move)
+		movePlayer(floors[curFloor], newPos);
 }
 
 
