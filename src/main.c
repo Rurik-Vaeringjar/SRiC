@@ -17,11 +17,6 @@ Floor** floors;
 int main(void)
 {
 	Pos start_pos;
-	unsigned char nMobs = 0;
-	numMobs = &nMobs;
-	
-	unsigned char nObs = 0;
-	numObs = &nObs;
 
 	if(cursesSetup())
 	{
