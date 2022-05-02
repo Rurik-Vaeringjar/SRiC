@@ -50,16 +50,12 @@ Pos* setupMap(Floor* floor)
 
 	Ob* newOb;
 	newOb = createStairs(pos[1], '>');
-	floor->obList[0] = newOb;
-	floor->obList[0]->index = 0;
-	SET(floor->map[newOb->entity->pos.y][newOb->entity->pos.x].obFlags, newOb->flags);
+	appendObList(floor, newOb);
 
 	if (curFloor > 0)
 	{
 		newOb = createStairs(pos[0], '<');
-		floor->obList[1] = newOb;
-		floor->obList[1]->index = 1;
-		SET(floor->map[newOb->entity->pos.y][newOb->entity->pos.x].obFlags, newOb->flags);
+		appendObList(floor, newOb);
 	}
 
 	free(rooms);

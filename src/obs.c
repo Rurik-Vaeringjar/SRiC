@@ -13,9 +13,7 @@ void initObList(Floor* floor)
 {
 	floor->obList = calloc(8, sizeof(Ob*));
 	floor->sizeObs = 8;
-	floor->numObs = 2;
-	if (curFloor == 0)
-		floor->numObs--;
+	floor->numObs = 0;
 }
 
 void appendObList(Floor* floor, Ob* newOb)
@@ -25,7 +23,8 @@ void appendObList(Floor* floor, Ob* newOb)
 			resizeObList(floor);
 		
 		char i = floor->numObs-1;
-		SET(floor->map[newOb->entity->pos.y][newOb->entity->pos.x].obFlags, newOb->flags);
+		SET(floor->map[newOb->entity->pos.y][newOb->entity->pos.x].obFlags, 
+			newOb->flags);
 		floor->obList[i] = newOb;
 		floor->obList[i]->index = i;
 		

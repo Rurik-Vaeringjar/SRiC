@@ -14,9 +14,15 @@ void drawMap(Tile** map)
 		}
 }
 
-void drawEntity(Entity* entity)
+void drawEntity(Entity* entity, bool visible)
 {
-	mvaddch(entity->pos.y, entity->pos.x, entity->ch | entity->color);
+		int color;
+		if (visible)
+			color = entity->color;
+		else
+			color = COLOR_PAIR(SEEN_COLOR);
+
+		mvaddch(entity->pos.y, entity->pos.x, entity->ch | color);
 }
 
 void drawObs(Floor* floor)
@@ -27,7 +33,9 @@ void drawObs(Floor* floor)
 		y = floor->obList[i]->entity->pos.y;
 		x = floor->obList[i]->entity->pos.x;
 		if (floor->map[y][x].visible)
-			drawEntity(floor->obList[i]->entity);
+			drawEntity(floor->obList[i]->entity, true);
+		else if (floor->map[y][x].seen)
+			drawEntity(floor->obList[i]->entity, false);
 	}
 }
 
@@ -39,7 +47,7 @@ void drawMobs(Floor* floor)
 		y = floor->mobList[i]->entity->pos.y;
 		x = floor->mobList[i]->entity->pos.x;
 		if (floor->map[y][x].visible)
-			drawEntity(floor->mobList[i]->entity);
+			drawEntity(floor->mobList[i]->entity, true);
 	}
 }
 
@@ -49,7 +57,6 @@ void drawAll(void)
 	drawMap(floors[curFloor]->map);
 	drawObs(floors[curFloor]);
 	drawMobs(floors[curFloor]);
-	drawEntity(player);
 	
 	//shitty placeholder text
 	mvprintw(0, 0, "Floor: %d", curFloor);
@@ -64,4 +71,6 @@ void drawAll(void)
 		mvprintw(3, 0, "stairs");
 	else if CHK(floors[curFloor]->map[player->pos.y][player->pos.x].obFlags, CORPSE)
 		mvprintw(3, 0, "corpse");
+
+	drawEntity(player, true);
 }

@@ -92,7 +92,7 @@ typedef struct
 
 //draw.c function prototypes
 void drawMap(Tile** map);
-void drawEntity(Entity* entity);
+void drawEntity(Entity* entity, bool visible);
 void drawObs(Floor* floor);
 void drawMobs(Floor* floor);
 void drawAll(void);
