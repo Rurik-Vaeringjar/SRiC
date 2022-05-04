@@ -20,8 +20,8 @@
 
 //object flags
 #define STAIRS (1 << 0) // 1
-#define CORPSE (1 << 1) // 2
-
+#define NEXT   (1 << 1) // 2
+#define CORPSE (1 << 2) // 4
 
 //flag macros
 #define SET(n, f) ((n) |= (f))

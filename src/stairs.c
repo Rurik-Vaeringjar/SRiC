@@ -9,7 +9,7 @@ Ob* createStairs(Pos pos, char ch)
 	newOb->entity->color = COLOR_PAIR(VISIBLE_COLOR);
 	newOb->entity->pos.y = pos.y;
 	newOb->entity->pos.x = pos.x;
-	SET(newOb->flags, STAIRS);
+	SET(newOb->flags, STAIRS | (ch=='>' ? NEXT : 0));
 
 	return newOb;
 }
@@ -19,16 +19,13 @@ void useStairs(Floor* floor)
 	if (CHK(floor->map[player->pos.y][player->pos.x].obFlags, STAIRS))
 	{
 		clearFOV(floor->map, player);
-		if(floor->end_pos.y == player->pos.y &&
-		   floor->end_pos.x == player->pos.x)
+		if(CHK(floor->map[player->pos.y][player->pos.x].obFlags, NEXT))
 		{
 			nextFloor();
 			player->pos.y = floors[curFloor]->start_pos.y;
 			player->pos.x = floors[curFloor]->start_pos.x;
 		}
-		else if (floor->start_pos.y == player->pos.y &&
-				 floor->start_pos.x == player->pos.x &&
-				 curFloor > 0)
+		else
 		{
 			prevFloor();
 			player->pos.y = floors[curFloor]->end_pos.y;
