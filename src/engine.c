@@ -13,7 +13,9 @@ bool cursesSetup(void)
 		init_pair(VISIBLE_COLOR, COLOR_WHITE, COLOR_BLACK);
 		init_pair(SEEN_COLOR, COLOR_BLUE, COLOR_BLACK);
 		init_pair(MOB_COLOR, COLOR_YELLOW, COLOR_BLACK);
+		init_pair(SLIME_COLOR, COLOR_GREEN, COLOR_BLACK);
 		init_pair(CORPSE_COLOR, COLOR_RED, COLOR_BLACK);
+		init_pair(DEAD_SLIME_COLOR, COLOR_BLACK, COLOR_GREEN);
 
 		return true;
 	}

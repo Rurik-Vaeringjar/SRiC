@@ -12,7 +12,9 @@
 #define VISIBLE_COLOR 1
 #define SEEN_COLOR 2
 #define MOB_COLOR 3
-#define CORPSE_COLOR 4
+#define SLIME_COLOR 4
+#define CORPSE_COLOR 5
+#define DEAD_SLIME_COLOR 6
 
 //game states
 #define PLAYER_TURN 0
@@ -21,7 +23,7 @@
 //object flags
 #define STAIRS (1 << 0) // 1
 #define NEXT   (1 << 1) // 2
-#define CORPSE (1 << 2) // 4
+#define CORPSE (1 << 7) // 128
 
 //flag macros
 #define SET(n, f) ((n) |= (f))
@@ -66,6 +68,7 @@ typedef struct Mob
 {
 	Entity* entity;
 	char index;
+	uint8_t flags;
 } Mob;
 
 typedef struct Ob
@@ -95,6 +98,7 @@ void drawMap(Tile** map);
 void drawEntity(Entity* entity, bool visible);
 void drawObs(Floor* floor);
 void drawMobs(Floor* floor);
+void drawUI(void);
 void drawAll(void);
 
 //engine.c function prototypes

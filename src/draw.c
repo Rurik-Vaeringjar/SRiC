@@ -51,26 +51,29 @@ void drawMobs(Floor* floor)
 	}
 }
 
-void drawAll(void)
+void drawUI(void)
 {
-	clear();
-	drawMap(floors[curFloor]->map);
-	drawObs(floors[curFloor]);
-	drawMobs(floors[curFloor]);
-	
-	//shitty placeholder text
-	mvprintw(0, 0, "Floor: %d", curFloor);
+	mvprintw(0, 0, "Floor: %d", curFloor+1);
+	/*
 	mvprintw(1, 0, "mobList(%p) with sizeMob(%p) = %d, numMob(%p) = %d", floors[curFloor]->mobList, 
 					&floors[curFloor]->sizeMobs, floors[curFloor]->sizeMobs, 
 					&floors[curFloor]->numMobs, floors[curFloor]->numMobs);
 	mvprintw(2, 0, "obList(%p) with sizeOb(%p) = %d, numOb(%p) = %d", floors[curFloor]->obList, 
 					&floors[curFloor]->sizeObs, floors[curFloor]->sizeObs, 
 					&floors[curFloor]->numObs, floors[curFloor]->numObs);
-	
+	*/
 	if CHK(floors[curFloor]->map[player->pos.y][player->pos.x].obFlags, STAIRS)
-		mvprintw(3, 0, "stairs");
+		mvprintw(1, 0, "stairs");
 	else if CHK(floors[curFloor]->map[player->pos.y][player->pos.x].obFlags, CORPSE)
-		mvprintw(3, 0, "corpse");
+		mvprintw(1, 0, "corpse");
+}
 
+void drawAll(void)
+{
+	clear();
+	drawMap(floors[curFloor]->map);
+	drawObs(floors[curFloor]);
+	drawMobs(floors[curFloor]);
+	drawUI();
 	drawEntity(player, true);
 }

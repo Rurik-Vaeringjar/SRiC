@@ -9,8 +9,10 @@ Mob* createMob(Pos spawn_pos, char ch)
 	newMob->entity->pos.y = spawn_pos.y;
 	newMob->entity->pos.x = spawn_pos.x;
 	newMob->entity->ch = ch;
-	newMob->entity->color = COLOR_PAIR(MOB_COLOR);
-
+	if (ch == 's')
+		newMob->entity->color = COLOR_PAIR(SLIME_COLOR);
+	else
+		newMob->entity->color = COLOR_PAIR(MOB_COLOR);
 	return newMob;
 }
 
@@ -20,10 +22,12 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 
 	int roll = rand()%1000;
 	//orc
-	if (roll > 995)
+	if (roll > 998)
 		mob = createMob(spawn_pos, 'T');
-	else if (roll > 980)
+	else if (roll > 995)
 		mob = createMob(spawn_pos, 'o');
+	else if (roll > 980)
+		mob = createMob(spawn_pos, 's');
 
 	if (mob)
 		appendMobList(floor, mob);
@@ -48,6 +52,7 @@ void appendMobList(Floor* floor, Mob* newMob)
 		char i = floor->numMobs-1;
 		floor->mobList[i] = newMob;
 		floor->mobList[i]->index = i;
+		floor->map[newMob->entity->pos.y][newMob->entity->pos.x].occupied = i;
 }
 
 void resizeMobList(Floor* floor)

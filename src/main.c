@@ -26,6 +26,7 @@ int main(void)
 		//map = createMapTiles();
 		//start_pos = setupMap();
 		player = createPlayer(floors[curFloor]->start_pos);
+		floors[curFloor]->map[player->pos.y][player->pos.x].occupied = -2;
 
 		gameLoop();
 
