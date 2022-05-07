@@ -20,6 +20,12 @@
 #define PLAYER_TURN 0
 #define MOB_TURN 1
 
+//attribute flags
+#define WALKABLE    (1 << 0) // 1
+#define TRANSPARENT (1 << 1) // 2
+#define VISIBLE     (1 << 2) // 4
+#define SEEN        (1 << 3) // 8
+ 
 //object flags
 #define STAIRS (1 << 0) // 1
 #define NEXT   (1 << 1) // 2
@@ -41,10 +47,7 @@ typedef struct
 {
 	char ch;
 	int color;
-	bool walkable;
-	bool transparent;
-	bool visible;
-	bool seen;
+	uint8_t attrFlags;
 	char occupied;
 	uint8_t obFlags;
 } Tile;

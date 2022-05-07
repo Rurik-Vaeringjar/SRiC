@@ -9,6 +9,7 @@ Ob* createStairs(Pos pos, char ch)
 	newOb->entity->color = COLOR_PAIR(VISIBLE_COLOR);
 	newOb->entity->pos.y = pos.y;
 	newOb->entity->pos.x = pos.x;
+	newOb->flags = 0b00000000;
 	SET(newOb->flags, STAIRS | (ch=='>' ? NEXT : 0));
 
 	return newOb;

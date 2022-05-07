@@ -11,11 +11,9 @@ Tile** createMapTiles(void)
 		{
 			tiles[y][x].ch = '#';
 			tiles[y][x].color = COLOR_PAIR(VISIBLE_COLOR);
-			tiles[y][x].walkable = false;
-			tiles[y][x].transparent = false;
-			tiles[y][x].visible = false;
-			tiles[y][x].seen = false;
+			tiles[y][x].attrFlags = 0b00000000;
 			tiles[y][x].occupied = -1;
+			tiles[y][x].obFlags = 0b00000000;
 		}
 	}
 

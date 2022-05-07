@@ -5,8 +5,7 @@ void makeFOV(Tile** map, Entity* player)
 	int y, x, distance, rad=15;
 	Pos target;
 
-	map[player->pos.y][player->pos.x].visible = true;
-	map[player->pos.y][player->pos.x].seen = true;
+	SET(map[player->pos.y][player->pos.x].attrFlags, VISIBLE|SEEN);
 
 	for (y=player->pos.y-rad; y<player->pos.y+rad; y++)
 		for(x=player->pos.x-rad; x<player->pos.x+rad; x++)
@@ -17,10 +16,7 @@ void makeFOV(Tile** map, Entity* player)
 
 			if(distance<rad)
 				if(isInMap(y, x) && lineOfSight(map, player->pos, target))
-				{
-					map[y][x].visible = true;
-					map[y][x].seen = true;
-				}
+					SET(map[y][x].attrFlags, VISIBLE|SEEN);
 		}
 }
 
@@ -30,7 +26,7 @@ void clearFOV(Tile** map, Entity* player)
 	for (y=player->pos.y-rad; y<player->pos.y+rad; y++)
 		for(x=player->pos.x-rad; x<player->pos.x+rad; x++)
 			if(isInMap(y, x))
-				map[y][x].visible = false;
+				CLR(map[y][x].attrFlags, VISIBLE);
 
 }
 
@@ -83,7 +79,7 @@ bool lineOfSight(Tile** map, Pos origin, Pos target)
 
 			if (y == origin.y && x == origin.x)
 				return true;
-		} while (map[y][x].transparent);
+		} while (CHK(map[y][x].attrFlags, TRANSPARENT));
 
 		return false;
 	}
@@ -104,7 +100,7 @@ bool lineOfSight(Tile** map, Pos origin, Pos target)
 
 			if (y == origin.y && x == origin.x)
 				return true;
-		} while (map[y][x].transparent);
+		} while (CHK(map[y][x].attrFlags, TRANSPARENT));
 
 		return false;
 	}

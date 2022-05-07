@@ -97,7 +97,7 @@ void handleInput(int input)
 
 void movePlayer(Floor* floor, Pos newPos)
 {
-	if (floor->map[newPos.y][newPos.x].walkable)
+	if (CHK(floor->map[newPos.y][newPos.x].attrFlags, WALKABLE))
 	{
 		char collision = floor->map[newPos.y][newPos.x].occupied;
 		if (collision > -1)

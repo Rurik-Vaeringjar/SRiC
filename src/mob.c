@@ -13,7 +13,7 @@ void killMob(Tile** map, Mob* mob)
 void moveMob(Tile** map, Mob* mob)
 {
 	Pos newPos = {mob->entity->pos.y, mob->entity->pos.x};
-	if (map[newPos.y][newPos.x].visible)
+	if (CHK(map[newPos.y][newPos.x].attrFlags, VISIBLE))
 	{
 		int dy = player->pos.y - newPos.y;
 		int dx = player->pos.x - newPos.x;
@@ -38,7 +38,7 @@ void moveMob(Tile** map, Mob* mob)
 		newPos.x += rand()%3-1;
 	}
 
-	if (map[newPos.y][newPos.x].walkable)
+	if (CHK(map[newPos.y][newPos.x].attrFlags, WALKABLE))
 	{
 		if (map[newPos.y][newPos.x].occupied == -1)
 		{

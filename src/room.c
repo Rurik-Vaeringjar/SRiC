@@ -20,8 +20,7 @@ void addRoom(Floor* floor, Room room)
 			if(y<MAP_HEIGHT && y>0 && x<MAP_WIDTH && x>0)
 			{
 				floor->map[y][x].ch = '.';
-				floor->map[y][x].walkable = true;
-				floor->map[y][x].transparent = true;
+				SET(floor->map[y][x].attrFlags, WALKABLE|TRANSPARENT);
 
 				spawnMob(floor, (Pos){y, x});
 			}
@@ -49,7 +48,6 @@ void connectRoomsCenter(Tile** map, Pos cntrA, Pos cntrB)
 			break;
 
 		map[temp.y][temp.x].ch = '.';
-		map[temp.y][temp.x].walkable = true;
-		map[temp.y][temp.x].transparent = true;
+		SET(map[temp.y][temp.x].attrFlags, WALKABLE|TRANSPARENT);
 	}
 }

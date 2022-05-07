@@ -5,9 +5,9 @@ void drawMap(Tile** map)
 	for (int y=0; y<MAP_HEIGHT; y++)
 		for (int x=0; x<MAP_WIDTH; x++)
 		{
-			if (map[y][x].visible)
+			if (CHK(map[y][x].attrFlags, VISIBLE))
 				mvaddch(y, x, map[y][x].ch | map[y][x].color);
-			else if (map[y][x].seen)
+			else if (CHK(map[y][x].attrFlags, SEEN))
 				mvaddch(y, x, map[y][x].ch | COLOR_PAIR(SEEN_COLOR));
 			else
 				mvaddch(y, x, ' ');
@@ -32,9 +32,9 @@ void drawObs(Floor* floor)
 	{
 		y = floor->obList[i]->entity->pos.y;
 		x = floor->obList[i]->entity->pos.x;
-		if (floor->map[y][x].visible)
+		if (CHK(floor->map[y][x].attrFlags, VISIBLE))
 			drawEntity(floor->obList[i]->entity, true);
-		else if (floor->map[y][x].seen)
+		else if (CHK(floor->map[y][x].attrFlags, SEEN))
 			drawEntity(floor->obList[i]->entity, false);
 	}
 }
@@ -46,7 +46,7 @@ void drawMobs(Floor* floor)
 	{
 		y = floor->mobList[i]->entity->pos.y;
 		x = floor->mobList[i]->entity->pos.x;
-		if (floor->map[y][x].visible)
+		if (CHK(floor->map[y][x].attrFlags, VISIBLE))
 			drawEntity(floor->mobList[i]->entity, true);
 	}
 }
