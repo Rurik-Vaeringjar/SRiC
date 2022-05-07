@@ -4,8 +4,7 @@ void objectifyMob(char index)
 {
 	Ob* newOb = calloc(1, sizeof(Ob));
 	newOb->entity = floors[curFloor]->mobList[index]->entity;
-	newOb->flags = 0b00000000;
-	SET(newOb->flags, CORPSE);
+	newOb->flags = 0b10000000; //CORPSE
 	appendObList(floors[curFloor], newOb);
 	reduceMobList(floors[curFloor], index);
 }

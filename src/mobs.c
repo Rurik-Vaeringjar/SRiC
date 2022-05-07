@@ -38,9 +38,6 @@ void initMobList(Floor* floor)
 	floor->mobList = calloc(8, sizeof(Mob*));
 	floor->sizeMobs = 8;
 	floor->numMobs = 0;
-
-	//printf("sizeMobs = %d and numMobs = %d\n", *(floor->sizeMobs), *(floor->numMobs));
-	//printf("%p, %p, and %p\n", floor->mobList, floor->sizeMobs, floor->numMobs);
 }
 
 void appendMobList(Floor* floor, Mob* newMob)
