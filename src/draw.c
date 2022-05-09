@@ -54,14 +54,14 @@ void drawMobs(Floor* floor)
 void drawUI(void)
 {
 	mvprintw(0, 0, "Floor: %d", curFloor+1);
-	/*
-	mvprintw(1, 0, "mobList(%p) with sizeMob(%p) = %d, numMob(%p) = %d", floors[curFloor]->mobList, 
+	
+	mvprintw(36, 0, "mobList(%p) with sizeMob(%p) = %d, numMob(%p) = %d", floors[curFloor]->mobList, 
 					&floors[curFloor]->sizeMobs, floors[curFloor]->sizeMobs, 
 					&floors[curFloor]->numMobs, floors[curFloor]->numMobs);
-	mvprintw(2, 0, "obList(%p) with sizeOb(%p) = %d, numOb(%p) = %d", floors[curFloor]->obList, 
+	mvprintw(37, 0, "obList(%p) with sizeOb(%p) = %d, numOb(%p) = %d", floors[curFloor]->obList, 
 					&floors[curFloor]->sizeObs, floors[curFloor]->sizeObs, 
 					&floors[curFloor]->numObs, floors[curFloor]->numObs);
-	*/
+	
 	if CHK(floors[curFloor]->map[player->pos.y][player->pos.x].obFlags, STAIRS)
 		mvprintw(1, 0, "stairs");
 	else if CHK(floors[curFloor]->map[player->pos.y][player->pos.x].obFlags, CORPSE)

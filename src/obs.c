@@ -20,7 +20,7 @@ void appendObList(Floor* floor, Ob* newOb)
 {
 	floor->numObs++;
 		if (floor->numObs > floor->sizeObs)
-			resizeObList(floor);
+			resizeObList(floor, 1);
 		
 		char i = floor->numObs-1;
 		SET(floor->map[newOb->entity->pos.y][newOb->entity->pos.x].obFlags, 
@@ -30,9 +30,9 @@ void appendObList(Floor* floor, Ob* newOb)
 		
 }
 
-void resizeObList(Floor* floor)
+void resizeObList(Floor* floor, char mod)
 {
-	floor->sizeObs = floor->sizeObs +8;
+	floor->sizeObs = floor->sizeObs + (8*mod);
 	Ob** tempList = realloc(floor->obList, sizeof(Ob*) * floor->sizeObs);
 	floor->obList = tempList;
 }
@@ -43,7 +43,7 @@ void freeOb(Ob* ob)
 	free(ob);
 }
 
-void reduceObList(Floor* floor, char index)
+void reduceObList(Floor* floor, char mob)
 {
 	/*floor->numObs--;
 	if (index != floor->numObs)

@@ -44,7 +44,7 @@ void appendMobList(Floor* floor, Mob* newMob)
 {
 		floor->numMobs++;
 		if (floor->numMobs > floor->sizeMobs)
-			resizeMobList(floor);
+			resizeMobList(floor, 1);
 		
 		char i = floor->numMobs-1;
 		floor->mobList[i] = newMob;
@@ -52,9 +52,9 @@ void appendMobList(Floor* floor, Mob* newMob)
 		floor->map[newMob->entity->pos.y][newMob->entity->pos.x].occupied = i;
 }
 
-void resizeMobList(Floor* floor)
+void resizeMobList(Floor* floor, char mod)
 {
-	floor->sizeMobs = floor->sizeMobs +8;
+	floor->sizeMobs = floor->sizeMobs + (8*mod);
 	Mob** tempList = realloc(floor->mobList, sizeof(Mob*) * floor->sizeMobs);
 	floor->mobList = tempList;
 }
@@ -77,6 +77,9 @@ void reduceMobList(Floor* floor, char index)
 		floor->mobList[floor->numMobs] = temp;
 	}
 	free(floor->mobList[floor->numMobs]);
+	
+	if (floor->numMobs%8 == 0)
+		resizeMobList(floor, -1);
 }
 
 void freeMobList(Floor* floor)
