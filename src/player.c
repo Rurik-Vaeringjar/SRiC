@@ -16,7 +16,6 @@ void handleInput(int input)
 {
 	bool move = true;
 	Pos newPos = {player->pos.y, player->pos.x};
-	
 
 	switch(input)
 	{
@@ -85,15 +84,6 @@ void handleInput(int input)
 	if (move)
 		movePlayer(floors[curFloor], newPos);
 }
-
-
-/*int mobCollision(Pos target)
-{
-	for (int i=0; i<numMobs; i++)
-		if (target.y == mobList[i]->entity->pos.y && target.x == mobList[i]->entity->pos.x)
-			return i;
-	return -1;
-}*/
 
 void movePlayer(Floor* floor, Pos newPos)
 {
