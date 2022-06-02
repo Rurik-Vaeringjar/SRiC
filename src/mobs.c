@@ -1,7 +1,7 @@
 #include <rogue.h>
 
 //----------------------------------------------------------------- ALLOC
-Mob* createMob(Pos spawn_pos, char ch)
+Mob* createMob(Pos spawn_pos, Stats start_stats, char ch)
 {
 	Mob* newMob = calloc(1, sizeof(Mob));
 
@@ -21,13 +21,15 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 	Mob* mob=NULL;
 
 	int roll = rand()%1000;
+	Stats base_stats;
+	
 	//orc
 	if (roll > 998)
-		mob = createMob(spawn_pos, 'T');
+		mob = createMob(spawn_pos, base_stats, 'T');
 	else if (roll > 995)
-		mob = createMob(spawn_pos, 'o');
+		mob = createMob(spawn_pos, base_stats, 'o');
 	else if (roll > 980)
-		mob = createMob(spawn_pos, 's');
+		mob = createMob(spawn_pos, base_stats, 's');
 
 	if (mob)
 		appendMobList(floor, mob);
@@ -58,6 +60,7 @@ void resizeMobList(Floor* floor, char mod)
 	Mob** tempList = realloc(floor->mobList, sizeof(Mob*) * floor->sizeMobs);
 	floor->mobList = tempList;
 }
+
 //----------------------------------------------------------------- FREE
 void freeMob(Mob* mob)
 {

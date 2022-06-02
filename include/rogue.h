@@ -45,11 +45,12 @@ typedef struct
 
 typedef struct
 {
-	char ch;
-	int color;
-	uint8_t attrFlags;
-	char occupied;
-	uint8_t obFlags;
+	int color;			//AAAA
+	char ch;			//B
+	uint8_t attrFlags;	//C
+	char occupied;		//D
+	uint8_t obFlags;	//E
+	// AAAA|BCDE
 } Tile;
 
 typedef struct
@@ -62,15 +63,31 @@ typedef struct
 
 typedef struct
 {
-	Pos pos;
-	char ch;
-	int color;
+	Pos pos;			//AAAA|AAAA?
+	int color;			//BBBB
+	char ch;			//C
 } Entity;
+
+typedef struct
+{
+	unsigned char curHP;
+	unsigned char maxHP;
+
+	unsigned char AC;
+
+	unsigned char str;
+	unsigned char dex;
+	unsigned char con;
+	unsigned char mnd;
+	unsigned char wis;
+	unsigned char cha;
+} Stats;
 
 typedef struct Mob
 {
-	Entity* entity;
-	char index;
+	Stats stats;
+	Entity* entity;	
+	char index;		
 	uint8_t flags;
 } Mob;
 
@@ -84,16 +101,16 @@ typedef struct Ob
 typedef struct
 {
 	Mob** mobList;
+	Ob** obList;
+	Tile** map;
+
+	char numObs;
+	char sizeObs;
 	char numMobs;
 	char sizeMobs;
 
-	Ob** obList;
-	char numObs;
-	char sizeObs;
-
-	Tile** map;
 	Pos start_pos;
-	Pos end_pos;
+	Pos end_pos;	
 } Floor;
 
 //draw.c function prototypes
