@@ -1,21 +1,28 @@
 #include <rogue.h>
 
-Entity* createPlayer(Pos start_pos)
+Player* createPlayer(Pos start_pos)
 {
-	Entity* newPlayer = calloc(1, sizeof(Entity));
+	Player* newPlayer = calloc(1, sizeof(Player));
 
-	newPlayer->pos.y = start_pos.y;
-	newPlayer->pos.x = start_pos.x;
-	newPlayer->ch = '@';
-	newPlayer->color = COLOR_PAIR(VISIBLE_COLOR);
-
+	Entity* entity = calloc(1, sizeof(Entity));
+	entity->pos.y = start_pos.y;
+	entity->pos.x = start_pos.x;
+	entity->ch = '@';
+	entity->color = COLOR_PAIR(VISIBLE_COLOR);
+	newPlayer->entity = entity;
+	
+	newPlayer->stats.hp = 50;
+	newPlayer->stats.MAX_HP = 50;
+	newPlayer->stats.armor = 0;
+	newPlayer->stats.dmg = 5;
+	
 	return newPlayer;
 }
 
 void handleInput(int input)
 {
 	bool move = true;
-	Pos newPos = {player->pos.y, player->pos.x};
+	Pos newPos = {player->entity->pos.y, player->entity->pos.x};
 
 	switch(input)
 	{
@@ -97,12 +104,12 @@ void movePlayer(Floor* floor, Pos newPos)
 		}
 		else
 		{
-			clearFOV(floor->map, player);
-			floor->map[player->pos.y][player->pos.x].occupied = -1;
-			player->pos.y = newPos.y;
-			player->pos.x = newPos.x;
+			clearFOV(floor->map, player->entity);
+			floor->map[player->entity->pos.y][player->entity->pos.x].occupied = -1;
+			player->entity->pos.y = newPos.y;
+			player->entity->pos.x = newPos.x;
 			floor->map[newPos.y][newPos.x].occupied = -2;
-			makeFOV(floor->map, player);
+			makeFOV(floor->map, player->entity);
 		}
 	}
 }

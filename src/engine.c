@@ -31,7 +31,7 @@ void gameLoop(void)
 {
 	char ch;
 
-	makeFOV(floors[curFloor]->map, player);
+	makeFOV(floors[curFloor]->map, player->entity);
 	drawAll();
 
 	while(ch = getch())

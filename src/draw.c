@@ -62,9 +62,9 @@ void drawUI(void)
 					&floors[curFloor]->sizeObs, floors[curFloor]->sizeObs, 
 					&floors[curFloor]->numObs, floors[curFloor]->numObs);
 	
-	if CHK(floors[curFloor]->map[player->pos.y][player->pos.x].obFlags, STAIRS)
+	if CHK(floors[curFloor]->map[player->entity->pos.y][player->entity->pos.x].obFlags, STAIRS)
 		mvprintw(1, 0, "stairs");
-	else if CHK(floors[curFloor]->map[player->pos.y][player->pos.x].obFlags, CORPSE)
+	else if CHK(floors[curFloor]->map[player->entity->pos.y][player->entity->pos.x].obFlags, CORPSE)
 		mvprintw(1, 0, "corpse");
 }
 
@@ -75,5 +75,5 @@ void drawAll(void)
 	drawObs(floors[curFloor]);
 	drawMobs(floors[curFloor]);
 	drawUI();
-	drawEntity(player, true);
+	drawEntity(player->entity, true);
 }

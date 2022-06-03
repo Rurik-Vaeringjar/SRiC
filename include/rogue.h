@@ -70,18 +70,19 @@ typedef struct
 
 typedef struct
 {
-	unsigned char curHP;
-	unsigned char maxHP;
+	int hp;
+	int MAX_HP;
 
-	unsigned char AC;
+	unsigned char armor;
 
-	unsigned char str;
-	unsigned char dex;
-	unsigned char con;
-	unsigned char mnd;
-	unsigned char wis;
-	unsigned char cha;
+	unsigned char dmg;
 } Stats;
+
+typedef struct
+{
+	Stats stats;
+	Entity* entity;
+} Player;
 
 typedef struct Mob
 {
@@ -145,7 +146,7 @@ bool lineOfSight(Tile** map, Pos origin, Pos target);
 int getSign(int a);
 
 //player.c function protoypes
-Entity* createPlayer(Pos start_pos);
+Player* createPlayer(Pos start_pos);
 void handleInput(int input);
 void movePlayer(Floor* floor, Pos newPos);
 
@@ -155,7 +156,7 @@ void moveMob(Tile** map, Mob* mob);
 void mobsTurn(void);
 
 //mobs.c function prototypes
-Mob* createMob(Pos spawn_pos, char ch);
+Mob* createMob(Pos spawn_pos, Stats base_stats, char ch);
 void spawnMob(Floor* floor, Pos spawn_pos);
 void initMobList(Floor* floor);
 void appendMobList(Floor* floor, Mob* newMob);
@@ -201,7 +202,7 @@ extern unsigned char numFloors;
 extern unsigned char curFloor;
 extern char numMobs;
 extern char numObs;
-extern Entity* player;
+extern Player* player;
 extern Floor** floors;
 
 

@@ -15,8 +15,8 @@ void moveMob(Tile** map, Mob* mob)
 	Pos newPos = {mob->entity->pos.y, mob->entity->pos.x};
 	if (CHK(map[newPos.y][newPos.x].attrFlags, VISIBLE))
 	{
-		int dy = player->pos.y - newPos.y;
-		int dx = player->pos.x - newPos.x;
+		int dy = player->entity->pos.y - newPos.y;
+		int dx = player->entity->pos.x - newPos.x;
 
 		int abs_dy = abs(dy);
 		int abs_dx = abs(dx);

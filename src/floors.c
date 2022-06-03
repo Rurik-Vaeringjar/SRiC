@@ -40,14 +40,14 @@ void nextFloor(void)
 	if (curFloor == 254)
 		return;
 
-	clearFOV(floors[curFloor]->map, player);
+	clearFOV(floors[curFloor]->map, player->entity);
 
 	curFloor++;
 	if (curFloor == numFloors)
 		newFloor();
 	
-	player->pos.y = floors[curFloor]->start_pos.y;
-	player->pos.x = floors[curFloor]->start_pos.x;
+	player->entity->pos.y = floors[curFloor]->start_pos.y;
+	player->entity->pos.x = floors[curFloor]->start_pos.x;
 }
 
 void prevFloor(void)
@@ -55,12 +55,12 @@ void prevFloor(void)
 	if (curFloor == 0)
 		return;
 
-	clearFOV(floors[curFloor]->map, player);
+	clearFOV(floors[curFloor]->map, player->entity);
 
 	curFloor--;
 
-	player->pos.y = floors[curFloor]->end_pos.y;
-	player->pos.x = floors[curFloor]->end_pos.x;
+	player->entity->pos.y = floors[curFloor]->end_pos.y;
+	player->entity->pos.x = floors[curFloor]->end_pos.x;
 }
 
 void freeFloors(void)

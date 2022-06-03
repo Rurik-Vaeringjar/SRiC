@@ -17,21 +17,21 @@ Ob* createStairs(Pos pos, char ch)
 
 void useStairs(Floor* floor)
 {
-	if (CHK(floor->map[player->pos.y][player->pos.x].obFlags, STAIRS))
+	if (CHK(floor->map[player->entity->pos.y][player->entity->pos.x].obFlags, STAIRS))
 	{
-		clearFOV(floor->map, player);
-		if(CHK(floor->map[player->pos.y][player->pos.x].obFlags, NEXT))
+		clearFOV(floor->map, player->entity);
+		if(CHK(floor->map[player->entity->pos.y][player->entity->pos.x].obFlags, NEXT))
 		{
 			nextFloor();
-			player->pos.y = floors[curFloor]->start_pos.y;
-			player->pos.x = floors[curFloor]->start_pos.x;
+			player->entity->pos.y = floors[curFloor]->start_pos.y;
+			player->entity->pos.x = floors[curFloor]->start_pos.x;
 		}
 		else
 		{
 			prevFloor();
-			player->pos.y = floors[curFloor]->end_pos.y;
-			player->pos.x = floors[curFloor]->end_pos.x;
+			player->entity->pos.y = floors[curFloor]->end_pos.y;
+			player->entity->pos.x = floors[curFloor]->end_pos.x;
 		}
-		makeFOV(floors[curFloor]->map, player);
+		makeFOV(floors[curFloor]->map, player->entity);
 	}
 }

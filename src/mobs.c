@@ -1,7 +1,7 @@
 #include <rogue.h>
 
 //----------------------------------------------------------------- ALLOC
-Mob* createMob(Pos spawn_pos, Stats start_stats, char ch)
+Mob* createMob(Pos spawn_pos, Stats base_stats, char ch)
 {
 	Mob* newMob = calloc(1, sizeof(Mob));
 
@@ -25,12 +25,30 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 	
 	//orc
 	if (roll > 998)
+	{
+		base_stats.hp = 50;
+		base_stats.MAX_HP = 50;
+		base_stats.armor = 2;
+		base_stats.dmg = 5;
 		mob = createMob(spawn_pos, base_stats, 'T');
+	}
 	else if (roll > 995)
+	{
+		base_stats.hp = 20;
+		base_stats.MAX_HP = 20;
+		base_stats.armor = 1;
+		base_stats.dmg = 5;
 		mob = createMob(spawn_pos, base_stats, 'o');
+	}
 	else if (roll > 980)
+	{
+		base_stats.hp = 10;
+		base_stats.MAX_HP = 10;
+		base_stats.armor = 0;
+		base_stats.dmg = 2;
 		mob = createMob(spawn_pos, base_stats, 's');
-
+	}
+	
 	if (mob)
 		appendMobList(floor, mob);
 }
