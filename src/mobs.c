@@ -13,6 +13,13 @@ Mob* createMob(Pos spawn_pos, Stats base_stats, char ch)
 		newMob->entity->color = COLOR_PAIR(SLIME_COLOR);
 	else
 		newMob->entity->color = COLOR_PAIR(MOB_COLOR);
+
+	newMob->stats = calloc(1, sizeof(Stats));
+	newMob->stats->hp = base_stats.hp;
+	newMob->stats->MAX_HP = base_stats.MAX_HP;
+	newMob->stats->armor = base_stats.armor;
+	newMob->stats->dmg = base_stats.dmg;
+
 	return newMob;
 }
 
@@ -83,6 +90,7 @@ void resizeMobList(Floor* floor, char mod)
 void freeMob(Mob* mob)
 {
 	free(mob->entity);
+	free(mob->stats);
 	free(mob);
 }
 

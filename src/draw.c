@@ -25,6 +25,15 @@ void drawEntity(Entity* entity, bool visible)
 		mvaddch(entity->pos.y, entity->pos.x, entity->ch | color);
 }
 
+void drawPlayer()
+{
+	mvprintw(1, 0, "Health: %d/%d", player->stats->hp, player->stats->MAX_HP);
+	mvprintw(2, 0, "Armor: %d", player->stats->armor);
+	mvprintw(3, 0, "Damage: %d", player->stats->dmg);
+
+	drawEntity(player->entity, true);
+}
+
 void drawObs(Floor* floor)
 {
 	int y, x;
@@ -61,11 +70,12 @@ void drawUI(void)
 	mvprintw(37, 0, "obList(%p) with sizeOb(%p) = %d, numOb(%p) = %d", floors[curFloor]->obList, 
 					&floors[curFloor]->sizeObs, floors[curFloor]->sizeObs, 
 					&floors[curFloor]->numObs, floors[curFloor]->numObs);
-	
+
 	if CHK(floors[curFloor]->map[player->entity->pos.y][player->entity->pos.x].obFlags, STAIRS)
-		mvprintw(1, 0, "stairs");
+		mvprintw(4, 0, "stairs");
 	else if CHK(floors[curFloor]->map[player->entity->pos.y][player->entity->pos.x].obFlags, CORPSE)
-		mvprintw(1, 0, "corpse");
+		mvprintw(4, 0, "corpse");
+
 }
 
 void drawAll(void)
@@ -75,5 +85,5 @@ void drawAll(void)
 	drawObs(floors[curFloor]);
 	drawMobs(floors[curFloor]);
 	drawUI();
-	drawEntity(player->entity, true);
+	drawPlayer();
 }

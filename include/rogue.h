@@ -80,13 +80,13 @@ typedef struct
 
 typedef struct
 {
-	Stats stats;
+	Stats* stats;
 	Entity* entity;
 } Player;
 
 typedef struct Mob
 {
-	Stats stats;
+	Stats* stats;
 	Entity* entity;	
 	char index;		
 	uint8_t flags;
@@ -117,6 +117,7 @@ typedef struct
 //draw.c function prototypes
 void drawMap(Tile** map);
 void drawEntity(Entity* entity, bool visible);
+void drawPlayer(void);
 void drawObs(Floor* floor);
 void drawMobs(Floor* floor);
 void drawUI(void);
@@ -149,6 +150,7 @@ int getSign(int a);
 Player* createPlayer(Pos start_pos);
 void handleInput(int input);
 void movePlayer(Floor* floor, Pos newPos);
+void freePlayer(void);
 
 //mob.c function prototypes
 void killMob(Tile** map, Mob* mob);

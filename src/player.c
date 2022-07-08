@@ -11,11 +11,13 @@ Player* createPlayer(Pos start_pos)
 	entity->color = COLOR_PAIR(VISIBLE_COLOR);
 	newPlayer->entity = entity;
 	
-	newPlayer->stats.hp = 50;
-	newPlayer->stats.MAX_HP = 50;
-	newPlayer->stats.armor = 0;
-	newPlayer->stats.dmg = 5;
-	
+	Stats* stats = calloc(1, sizeof(Stats));
+	stats->hp = 50;
+	stats->MAX_HP = 50;
+	stats->armor = 0;
+	stats->dmg = 5;
+	newPlayer->stats = stats;
+
 	return newPlayer;
 }
 
@@ -112,5 +114,12 @@ void movePlayer(Floor* floor, Pos newPos)
 			makeFOV(floor->map, player->entity);
 		}
 	}
+}
+
+void freePlayer(void)
+{
+	free(player->entity);
+	free(player->stats);
+	free(player);
 }
 

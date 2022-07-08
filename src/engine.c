@@ -54,6 +54,6 @@ void gameLoop(void)
 void closeGame(void)
 {
 	endwin();
-	free(player);
+	freePlayer();
 	freeFloors();
 }
