@@ -101,8 +101,11 @@ void movePlayer(Floor* floor, Pos newPos)
 		char collision = floor->map[newPos.y][newPos.x].occupied;
 		if (collision > -1)
 		{	
-			killMob(floor->map, floor->mobList[collision]);
-			objectifyMob(collision);
+			if(attack(player->stats, floor->mobList[collision]->stats))
+			{
+				killMob(floor->map, floor->mobList[collision]);
+				objectifyMob(collision);
+			}
 		}
 		else
 		{

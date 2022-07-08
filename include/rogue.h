@@ -146,6 +146,9 @@ bool isInMap(int y, int x);
 bool lineOfSight(Tile** map, Pos origin, Pos target);
 int getSign(int a);
 
+//stats.c function prototypes
+char attack(Stats* attacker, Stats* defender);
+
 //player.c function protoypes
 Player* createPlayer(Pos start_pos);
 void handleInput(int input);
