@@ -1,7 +1,7 @@
 #include <rogue.h>
 
 //----------------------------------------------------------------- ALLOC
-Mob* createMob(Pos spawn_pos, Stats base_stats, char ch)
+Mob* createMob(Pos spawn_pos, Stats base_stats, char ch, uint8_t flags)
 {
 	Mob* newMob = calloc(1, sizeof(Mob));
 
@@ -23,6 +23,8 @@ Mob* createMob(Pos spawn_pos, Stats base_stats, char ch)
 	stats->dmg = base_stats.dmg;
 	newMob->stats = stats;
 
+	newMob->flags = flags;
+
 	return newMob;
 }
 
@@ -40,7 +42,7 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.MAX_HP = 30;
 		base_stats.armor = 2;
 		base_stats.dmg = 5;
-		mob = createMob(spawn_pos, base_stats, 'T');
+		mob = createMob(spawn_pos, base_stats, 'T', SLOW);
 	}
 	else if (roll > 995)
 	{
@@ -48,7 +50,7 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.MAX_HP = 15;
 		base_stats.armor = 0;
 		base_stats.dmg = 2;
-		mob = createMob(spawn_pos, base_stats, 'o');
+		mob = createMob(spawn_pos, base_stats, 'o', 0);
 	}
 	else if (roll > 980)
 	{
@@ -56,7 +58,15 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.MAX_HP = 10;
 		base_stats.armor = 0;
 		base_stats.dmg = 1;
-		mob = createMob(spawn_pos, base_stats, 's');
+		mob = createMob(spawn_pos, base_stats, 's', 0);
+	}
+	else if (roll > 975)
+	{
+		base_stats.hp = 0;
+		base_stats.MAX_HP = 0;
+		base_stats.armor = 0;
+		base_stats.dmg = 0;
+		mob = createMob(spawn_pos, base_stats, '%', DEAD | CORPSE);
 	}
 	
 	if (mob)
@@ -79,6 +89,10 @@ void appendMobList(Floor* floor, Mob* newMob)
 		char i = floor->numMobs-1;
 		floor->mobList[i] = newMob;
 		floor->mobList[i]->index = i;
+		
+		if CHK(newMob->flags, DEAD)
+			return;
+		
 		floor->map[newMob->entity->pos.y][newMob->entity->pos.x].occupied = i;
 }
 

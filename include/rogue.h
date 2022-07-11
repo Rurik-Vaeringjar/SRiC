@@ -31,6 +31,10 @@
 #define NEXT   (1 << 1) // 2
 #define CORPSE (1 << 7) // 128
 
+//mobject flags
+#define DEAD   (1 << 0) // 1
+#define SLOW   (1 << 1) // 2
+
 //flag macros
 #define SET(n, f) ((n) |= (f))
 #define CLR(n, f) ((n) &= ~(f))
@@ -161,7 +165,7 @@ void moveMob(Tile** map, Mob* mob);
 void mobsTurn(void);
 
 //mobs.c function prototypes
-Mob* createMob(Pos spawn_pos, Stats base_stats, char ch);
+Mob* createMob(Pos spawn_pos, Stats base_stats, char ch, uint8_t flags);
 void spawnMob(Floor* floor, Pos spawn_pos);
 void initMobList(Floor* floor);
 void appendMobList(Floor* floor, Mob* newMob);

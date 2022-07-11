@@ -12,7 +12,10 @@ void killMob(Tile** map, Mob* mob)
 
 void moveMob(Tile** map, Mob* mob)
 {
-	if (mob->entity->ch == 'T' && (rand()%2))
+	if (CHK(mob->flags, DEAD))
+		return;
+
+	if (CHK(mob->flags, SLOW) && rand()%2)
 		return;
 
 	Pos newPos = {mob->entity->pos.y, mob->entity->pos.x};
