@@ -5,20 +5,23 @@ Mob* createMob(Pos spawn_pos, Stats base_stats, char ch)
 {
 	Mob* newMob = calloc(1, sizeof(Mob));
 
-	newMob->entity = calloc(1, sizeof(Entity));
-	newMob->entity->pos.y = spawn_pos.y;
-	newMob->entity->pos.x = spawn_pos.x;
-	newMob->entity->ch = ch;
+	Entity* entity = calloc(1, sizeof(Entity));
+	entity->pos.y = spawn_pos.y;
+	entity->pos.x = spawn_pos.x;
+	entity->ch = ch;
 	if (ch == 's')
-		newMob->entity->color = COLOR_PAIR(SLIME_COLOR);
+		entity->color = COLOR_PAIR(SLIME_COLOR);
 	else
-		newMob->entity->color = COLOR_PAIR(MOB_COLOR);
+		entity->color = COLOR_PAIR(MOB_COLOR);
+	newMob->entity = entity;
 
-	newMob->stats = calloc(1, sizeof(Stats));
-	newMob->stats->hp = base_stats.hp;
-	newMob->stats->MAX_HP = base_stats.MAX_HP;
-	newMob->stats->armor = base_stats.armor;
-	newMob->stats->dmg = base_stats.dmg;
+
+	Stats* stats = calloc(1, sizeof(Stats));
+	stats->hp = base_stats.hp;
+	stats->MAX_HP = base_stats.MAX_HP;
+	stats->armor = base_stats.armor;
+	stats->dmg = base_stats.dmg;
+	newMob->stats = stats;
 
 	return newMob;
 }
@@ -33,18 +36,18 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 	//orc
 	if (roll > 998)
 	{
-		base_stats.hp = 50;
-		base_stats.MAX_HP = 50;
+		base_stats.hp = 30;
+		base_stats.MAX_HP = 30;
 		base_stats.armor = 2;
 		base_stats.dmg = 5;
 		mob = createMob(spawn_pos, base_stats, 'T');
 	}
 	else if (roll > 995)
 	{
-		base_stats.hp = 20;
-		base_stats.MAX_HP = 20;
-		base_stats.armor = 1;
-		base_stats.dmg = 5;
+		base_stats.hp = 15;
+		base_stats.MAX_HP = 15;
+		base_stats.armor = 0;
+		base_stats.dmg = 2;
 		mob = createMob(spawn_pos, base_stats, 'o');
 	}
 	else if (roll > 980)
@@ -52,7 +55,7 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.hp = 10;
 		base_stats.MAX_HP = 10;
 		base_stats.armor = 0;
-		base_stats.dmg = 2;
+		base_stats.dmg = 1;
 		mob = createMob(spawn_pos, base_stats, 's');
 	}
 	

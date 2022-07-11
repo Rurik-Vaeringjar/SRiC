@@ -12,6 +12,9 @@ void killMob(Tile** map, Mob* mob)
 
 void moveMob(Tile** map, Mob* mob)
 {
+	if (mob->entity->ch == 'T' && (rand()%2))
+		return;
+
 	Pos newPos = {mob->entity->pos.y, mob->entity->pos.x};
 	if (CHK(map[newPos.y][newPos.x].attrFlags, VISIBLE))
 	{
@@ -21,12 +24,12 @@ void moveMob(Tile** map, Mob* mob)
 		int abs_dy = abs(dy);
 		int abs_dx = abs(dx);
 
-		if (abs_dy > 1)
+		if (abs_dy > 0)
 		{
 			dy = (dy/abs_dy);
 			newPos.y += dy;
 		}
-		if (abs_dx > 1)
+		if (abs_dx > 0)
 		{
 			dx = (dx/abs_dx);
 			newPos.x += dx;
@@ -40,16 +43,20 @@ void moveMob(Tile** map, Mob* mob)
 
 	if (CHK(map[newPos.y][newPos.x].attrFlags, WALKABLE))
 	{
-		if (map[newPos.y][newPos.x].occupied == -1)
+		char occupied = map[newPos.y][newPos.x].occupied;
+		if (occupied == -1)
 		{
 			map[mob->entity->pos.y][mob->entity->pos.x].occupied = -1;
 			mob->entity->pos.y = newPos.y;
 			mob->entity->pos.x = newPos.x;
 			map[newPos.y][newPos.x].occupied = mob->index;
 		}
-		else
+		else if (occupied == -2)
 		{
-			
+			if(attack(mob->stats, player->stats))
+			{
+				player->stats->hp = 1;
+			}
 		}
 	}
 }
