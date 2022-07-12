@@ -9,7 +9,9 @@ Mob* createMob(Pos spawn_pos, Stats base_stats, char ch, uint8_t flags)
 	entity->pos.y = spawn_pos.y;
 	entity->pos.x = spawn_pos.x;
 	entity->ch = ch;
-	if (ch == 's')
+	if (CHK(flags, DEAD))
+		entity->color = COLOR_PAIR(CORPSE_COLOR);
+	else if (ch == 's')
 		entity->color = COLOR_PAIR(SLIME_COLOR);
 	else
 		entity->color = COLOR_PAIR(MOB_COLOR);
@@ -32,11 +34,11 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 {
 	Mob* mob=NULL;
 
-	int roll = rand()%1000;
+	int roll = rand()%10000;
 	Stats base_stats;
 	
 	//orc
-	if (roll > 998)
+	if (roll > 9995)
 	{
 		base_stats.hp = 30;
 		base_stats.MAX_HP = 30;
@@ -44,7 +46,7 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.dmg = 5;
 		mob = createMob(spawn_pos, base_stats, 'T', SLOW);
 	}
-	else if (roll > 995)
+	else if (roll > 9975)
 	{
 		base_stats.hp = 15;
 		base_stats.MAX_HP = 15;
@@ -52,7 +54,7 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.dmg = 2;
 		mob = createMob(spawn_pos, base_stats, 'o', 0);
 	}
-	else if (roll > 980)
+	else if (roll > 9900)
 	{
 		base_stats.hp = 10;
 		base_stats.MAX_HP = 10;
@@ -60,7 +62,7 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.dmg = 1;
 		mob = createMob(spawn_pos, base_stats, 's', 0);
 	}
-	else if (roll > 975)
+	else if (roll > 9800)
 	{
 		base_stats.hp = 0;
 		base_stats.MAX_HP = 0;
@@ -90,9 +92,12 @@ void appendMobList(Floor* floor, Mob* newMob)
 		floor->mobList[i] = newMob;
 		floor->mobList[i]->index = i;
 		
-		if CHK(newMob->flags, DEAD)
+		if (CHK(newMob->flags, DEAD))
+		{
+			SET(floor->map[newMob->entity->pos.y][newMob->entity->pos.x].obFlags, CORPSE);
 			return;
-		
+		}	
+
 		floor->map[newMob->entity->pos.y][newMob->entity->pos.x].occupied = i;
 }
 

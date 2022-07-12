@@ -124,6 +124,7 @@ void drawEntity(Entity* entity, bool visible);
 void drawPlayer(void);
 void drawObs(Floor* floor);
 void drawMobs(Floor* floor);
+void drawDeadMobs(Floor* floor);
 void drawUI(void);
 void drawAll(void);
 

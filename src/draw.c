@@ -53,10 +53,28 @@ void drawMobs(Floor* floor)
 	int y, x;
 	for (int i=0; i<floor->numMobs; i++)
 	{
-		y = floor->mobList[i]->entity->pos.y;
-		x = floor->mobList[i]->entity->pos.x;
-		if (CHK(floor->map[y][x].attrFlags, VISIBLE))
-			drawEntity(floor->mobList[i]->entity, true);
+		if (!CHK(floor->mobList[i]->flags, DEAD))
+		{
+			y = floor->mobList[i]->entity->pos.y;
+			x = floor->mobList[i]->entity->pos.x;
+			if (CHK(floor->map[y][x].attrFlags, VISIBLE))
+				drawEntity(floor->mobList[i]->entity, true);
+		}
+	}
+}
+
+void drawDeadMobs(Floor* floor)
+{
+	int y, x;
+	for (int i=0; i<floor->numMobs; i++)
+	{
+		if (CHK(floor->mobList[i]->flags, DEAD))
+		{
+			y = floor->mobList[i]->entity->pos.y;
+			x = floor->mobList[i]->entity->pos.x;
+			if (CHK(floor->map[y][x].attrFlags, VISIBLE))
+				drawEntity(floor->mobList[i]->entity, true);
+		}
 	}
 }
 
@@ -82,6 +100,7 @@ void drawAll(void)
 {
 	clear();
 	drawMap(floors[curFloor]->map);
+	drawDeadMobs(floors[curFloor]);
 	drawObs(floors[curFloor]);
 	drawMobs(floors[curFloor]);
 	drawUI();

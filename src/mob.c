@@ -7,6 +7,8 @@ void killMob(Tile** map, Mob* mob)
 	else
 		mob->entity->color = COLOR_PAIR(CORPSE_COLOR);
 	mob->entity->ch = '%';
+	SET(mob->flags, DEAD);
+	SET(map[mob->entity->pos.y][mob->entity->pos.x].obFlags, CORPSE);
 	map[mob->entity->pos.y][mob->entity->pos.x].occupied = -1;
 }
 

@@ -104,7 +104,7 @@ void movePlayer(Floor* floor, Pos newPos)
 			if(attack(player->stats, floor->mobList[collision]->stats))
 			{
 				killMob(floor->map, floor->mobList[collision]);
-				objectifyMob(collision);
+				//objectifyMob(collision);
 			}
 		}
 		else
