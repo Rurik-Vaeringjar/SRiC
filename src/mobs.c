@@ -37,8 +37,8 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 	int roll = rand()%10000;
 	Stats base_stats;
 	
-	//orc
-	if (roll > 9995)
+	//troll
+	if (roll < 5)
 	{
 		base_stats.hp = 30;
 		base_stats.MAX_HP = 30;
@@ -46,7 +46,8 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.dmg = 5;
 		mob = createMob(spawn_pos, base_stats, 'T', SLOW);
 	}
-	else if (roll > 9975)
+	//orc
+	else if (roll < 25)
 	{
 		base_stats.hp = 15;
 		base_stats.MAX_HP = 15;
@@ -54,7 +55,8 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.dmg = 2;
 		mob = createMob(spawn_pos, base_stats, 'o', 0);
 	}
-	else if (roll > 9900)
+	//slime
+	else if (roll < 45)
 	{
 		base_stats.hp = 10;
 		base_stats.MAX_HP = 10;
@@ -62,7 +64,8 @@ void spawnMob(Floor* floor, Pos spawn_pos)
 		base_stats.dmg = 1;
 		mob = createMob(spawn_pos, base_stats, 's', 0);
 	}
-	else if (roll > 9800)
+	//corpse
+	else if (roll < 55)
 	{
 		base_stats.hp = 0;
 		base_stats.MAX_HP = 0;
